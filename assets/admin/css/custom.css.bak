@@ -1,0 +1,119 @@
+body {
+     color: #546062;
+     background: #ffffff;
+}
+body.login {
+     background:rgba(0, 0, 0, 0.85) !important;
+}
+body.login .form.login_form {
+     padding: 30px;
+     background: linear-gradient(#afafaf,#3d7cc9,#131313);
+}
+.admin_login_logo {
+     width: 200px;
+     margin-top: -60px;
+}
+.login_content form {
+     text-shadow: none;
+     color: #fefefe;
+}
+.login_content div .reset_pass {
+     margin-right: 0!important;
+}
+.login_content form input[type="text"], .login_content form input[type="email"], .login_content form input[type="password"] {
+     border-radius: 0;
+     box-shadow: none;
+     height: 40px;
+}
+.nav_title {
+     background: #ffffff;
+}
+.left_col {
+     background: #ffffff;
+}
+.menu_section h3 {
+     color: #546062;
+     text-shadow: 1px 1px #fff;
+}
+.nav_menu {
+     background: #3d7cc9;
+     border-bottom: 1px solid #ffffff;
+}
+.nav_menu a {
+     color: #ffffff;
+}
+.accordion .panel-heading {
+     background: #3d7cc9;
+     color: #ffffff !important;
+}
+.btn-success {
+     background: #539d53;
+     border-color: #4a884a;
+}
+.page-title {
+     height: 40px;
+}
+.page-title .title_left h3 {
+     font-weight: 600;
+     color: #546062;
+}
+#sidebar-menu .nav>li>a {
+     padding: 7px 14px 5px;
+}
+#ordertbl select{
+     width: 120px;
+     padding: 0px 2px;
+     border-radius: 4px;
+     border: 1px solid #f08b08;
+}
+.nav_title {
+     background: #3e7cc8;
+}
+.site_title {
+     background: #3e7cc8;
+}
+.nav.child_menu>li>a, .nav.side-menu>li>a {
+     color: #3d7cc9;
+     font-size: 15px;
+}
+.nav.side-menu>li>a:hover {
+     color: #f08b08!important;
+}
+.nav.side-menu>li.active, .nav.side-menu>li.current-page {
+     border-right: 5px solid #f08b08;
+}
+.nav.side-menu>li.active>a {
+     background: linear-gradient(#f7deb1,#b7b7b7), #f7deb1;
+     text-shadow: none;
+}
+.btn-default{
+     border: 2px solid #f08b08 !important;
+     color: #f08b08 !important;
+     padding: 5px 12px;
+}
+.dt-buttons .btn-default, .note-btn-group .btn-default{
+     border: 1px solid #f08b08 !important;
+}
+.nav li li.current-page a, .nav.child_menu li li a.active, .nav.child_menu li li a:hover {
+     color: #f08b08;
+}
+.nav.navbar-nav>li>a {
+     color: #ffffff!important;
+     font-size: 15px;
+}
+
+#sublog {
+     width: 100%;
+     border: 2px solid #f08b08 !important;
+     color: #f08b08 !important;
+     transition: 0.8s all;
+}
+#sublog:hover {
+     color: #fff !important;
+     background: #f08b08 !important;
+     transition: 0.8s all;
+}
+.login_content a, a:focus, a:hover {
+     color: #eb8a23;
+     text-shadow: none;
+}
