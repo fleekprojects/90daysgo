@@ -25,18 +25,14 @@
 		}
 		
 		public function AddRecord(){
-
-				$this->Dmodel->checkLogin();
-				if($_FILES):
-				$data=$_POST;
+			$this->Dmodel->checkLogin();
+			$data=$_POST;
+			$arr=array('day_no'=>$data['day_no'], 'week_id'=>$data['week_id']);
+			if($this->Dmodel->chk_num($this->table,$arr) == 0){
 				$data['created_at']=datetime_now;
-				$data['status']=1;
-
 				$exec=$this->Dmodel->insertdata($this->table,$data);
 				$last_id=$this->db->insert_id();
-				
 				if(isset($_FILES['video']) && $_FILES['video']['tmp_name']){
-					
 					$config['upload_path']          = APPPATH.'../assets/front/uploads/courses/courseplans';
 					$config['allowed_types']        = 'mov|avi|flv|wmv|mp4';
 					$config['max_size']             = 100000;
@@ -64,24 +60,24 @@
 				}	
 			
 				echo $exec;
-			else:
+			}
+			else{
 				echo 2;
-			endif;
-			
+			}
 		}
 		
 		public function EditRecord(){
-			
-				$this->Dmodel->checkLogin();
-				if($_FILES):
-				$data=$_POST;
+			$this->Dmodel->checkLogin();
+			$data=$_POST;
+			$arr=array('day_no'=>$data['day_no'], 'week_id'=>$data['week_id'], 'id !=' => $data['id']);
+			if($this->Dmodel->chk_num($this->table,$arr) == 0){
 				$last_id=$data['id'];
-				$ldata['updated_at']=datetime_now;
-			
+				$data['updated_at']=datetime_now;
+				$exec=$this->Dmodel->update_data($this->table,$data['id'],$data,'id');
+				
 				if(isset($_FILES['video']) && $_FILES['video']['tmp_name']){
-					
 					$config['upload_path']          = APPPATH.'../assets/front/uploads/courses/courseplans';
-					$config['allowed_types']        = 'mp4';
+					$config['allowed_types']        = 'mov|avi|flv|wmv|mp4';
 					$config['max_size']             = 602400000;
 					$config['max_width']            = 1024;
 					$config['max_height']           = 768;
@@ -106,9 +102,10 @@
 					}
 				}
 				echo $exec;
-			else:
+			}
+			else{
 				echo 2;
-			endif;
+			}
 		}
 		
 		public function DeleteRecord(){
