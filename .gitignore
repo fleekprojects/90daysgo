@@ -1,0 +1,57 @@
+# logs and cache files
+**/logs
+**/logs/debug.log
+**/logs/error.log
+**/error.log
+*.log
+application/logs/*
+composer.lock
+
+.DS_Store
+application/cache/*
+
+# Backup Files
+*.bak
+
+# Composer Files
+/vendor/
+composer.phar
+composer.lock
+
+# application direcrories
+/uploads
+user_guide/*
+user_guide/build/*
+user_guide/cilexer/build/*
+user_guide/cilexer/dist/*
+user_guide/cilexer/pycilexer.egg-info/*
+
+assets/admin/uploads/
+assets/admin/uploads/*
+
+#application files
+environment.php
+environment2.php
+phinx.yml
+
+#system config files
+.editorconfig
+/.htaccess
+.htaccess
+
+
+# github cache
+/github-cache
+github-*.zip
+
+# IDE Files
+/nbproject/
+.idea/*
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+/tests/tests/
+/tests/results/
