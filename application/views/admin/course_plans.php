@@ -27,6 +27,12 @@
                               <input type="hidden" name="course_id" value="<?= $course_id ?>">
                               <input type="hidden" name="week_id" value="<?= $week_id ?>">
                               <div class="col-md-6">
+                                 <label class="control-label" for="example-text-input">Day No.</label>
+                                 <div class="form-group">
+                                    <input type="number" step="1" min="1" max="7" name="day_no" value="" placeholder="Enter Day Number" class="form-control">
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
                                  <label class="control-label" for="example-text-input">Sets</label>
                                  <div class="form-group">
                                     <input type="number" step="any" min="0" name="sets" value="" placeholder="Enter Sets" class="form-control">
@@ -75,6 +81,7 @@
                      <thead>
                         <tr>
                            <th align="center"><input type="checkbox" name="chkAll" class="checkUncheckAll" ></th>
+                           <th>Day No.</th>
                            <th>Video</th>
                            <th>Sets</th>
                            <th>Reps</th>
@@ -92,6 +99,7 @@
                            <td align="center">
                               <input class="chkIds" type="checkbox" name="ids[]" id="chk-<?= $rec['id'] ?>" value="<?= $rec['id'] ?>"  />
                            </td>
+						   <td><?= $rec['day_no']?></td>
                            <?php 
                            
                            // $size = '100x100';
@@ -128,7 +136,7 @@
                               <?= ($rec['updated_at'] == "" ? "" : date('jS M Y', strtotime($rec['updated_at']))); ?>
                            </td>
                            <td>
-                              <a class="btn btn-warning btn-edit" data-toggle="modal" data-target="#ModalEdit" <?= 'data-id="'.$rec['id'].'"    data-sets= "'.$rec['sets'].'" data-video= "'.$rec['video'].'" data-reps= "'.$rec['reps'].'"'; ?>><i class="fa fa-edit"></i></a>
+                              <a class="btn btn-warning btn-edit" data-toggle="modal" data-target="#ModalEdit" <?= 'data-id="'.$rec['id'].'" data-dayno= "'.$rec['day_no'].'" data-sets= "'.$rec['sets'].'" data-video= "'.$rec['video'].'" data-reps= "'.$rec['reps'].'"'; ?>><i class="fa fa-edit"></i></a>
                               <a class="btn btn-danger" onclick="doDelete(<?= $rec['id']; ?>)"><i class="fa fa-trash"></i></a>
                              
                            </td>
@@ -154,12 +162,17 @@
                <div class="modal-body">
                   <div id="msge"></div>
                   <form class="form-horizontal" method="post" id="Editform" action="<?= base_url();?>admin/CoursePlans/EditRecord"  enctype="multipart/form-data" >
+                   <input type="hidden" name="week_id" value="<?= $week_id ?>">
                    <input type="hidden" name="id" id="id" required>
                      <div class="form-group">
-            <div class="col-md-7">
-              <label class="control-label">Sets</label>
-              <input type="number" min="1" max="100" name="sets" id="sets" class="form-control" >
-            </div>
+					<div class="col-md-7">
+					  <label class="control-label">Day No</label>
+					  <input type="number" min="1" max="7" name="day_no" id="day_no" class="form-control" >
+					</div>
+					<div class="col-md-7">
+					  <label class="control-label">Sets</label>
+					  <input type="number" min="1" max="100" name="sets" id="sets" class="form-control" >
+					</div>
                      </div>
                      <div class="form-group">
                   <div class="col-md-7">
@@ -204,7 +217,6 @@
       $("#Editform").validate({
        rules: {
        video: {
-            required: true,
             accept: "video/mp4"
         }
   }
@@ -214,9 +226,10 @@
 
 
    $(document).on("click",".btn-edit",function() {
-      $("#id").val($(this).data("id"));
-    $("#sets").val($(this).data("sets"));
-      $("#reps").val($(this).data("reps"));
+		$("#id").val($(this).data("id"));
+		$("#sets").val($(this).data("sets"));
+		$("#reps").val($(this).data("reps"));
+		$("#day_no").val($(this).data("dayno"));
 		$("#video").attr("src","<?=base_url();?>assets/front/uploads/courses/courseplans/"+$(this).data("video"));
 		
 	});
