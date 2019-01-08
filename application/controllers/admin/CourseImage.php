@@ -18,6 +18,7 @@
 			$viewdata['title']=$this->pagetitle;
 			$viewdata['course_id']=$id;
 			$coursearr=array('course_id'=>$id);
+			$viewdata['parent']=$this->Dmodel->get_data("SELECT CONCAT(c.title,'(',p.title,')') AS title FROM courses c LEFT JOIN parents p ON c.parent_id=p.id WHERE c.id=".$id);
 			$viewdata['records']=$this->Dmodel->get_tbl_whr_arr($this->table,$coursearr);
 			$this->LoadAdminView($this->viewname,$viewdata);
 		}

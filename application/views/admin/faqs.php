@@ -43,16 +43,6 @@
                           <div class="panel-body">
 						  <form class="form-horizontal" method="post" id="Addform" action="<?= base_url();?>admin/faqs/AddRecord">
 							<div class="form-group">
-								<label class="col-md-2 control-label" for="example-text-input">Faq Type</label>
-								<div class="col-md-10">
-									<select name="tag" class="form-control">
-										<option value="quotes-orders">Quotes & Orders</option>
-										<option value="iphones-ipads">iPhones & iPad</option>
-										<option value="shipping">Shipping</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
 								<label class="col-md-2 control-label" for="example-text-input">Question</label>
 								<div class="col-md-10">
 									<textarea name="question" placeholder="Enter Question" class="form-control" rows="1"></textarea>
@@ -96,7 +86,6 @@
                         <tr>
                           <th align="center"><input type="checkbox" name="chkAll" class="checkUncheckAll" ></th>
                           <th>Question</th>
-                          <th>Tag</th>
                           <th>Status</th>
                           <th>Date Added</th>
                           <th>Date Modified</th>
@@ -111,7 +100,6 @@
 						<td align="center">
 						<input class="chkIds" type="checkbox" name="ids[]" id="chk-<?= $rec['id'] ?>" value="<?= $rec['id'] ?>"  /></td>
                           <td><?= $rec['question']; ?></td>
-                          <td><?= $rec['tag']; ?></td>
                           <td>
 						   <div class="form-group">
                             <label>
@@ -155,18 +143,9 @@
 						  <div id="msge"></div>
 						  <form class="form-horizontal" method="post" id="Editform" action="<?= base_url();?>admin/faqs/EditRecord">
 							<div class="form-group">
-								<label class="control-label" for="example-text-input">Faq Type</label>
-								<select name="tag" id="tag" class="form-control">
-									<option value="quotes-orders">Quotes & Orders</option>
-									<option value="iphones-ipads">iPhones & iPad</option>
-									<option value="shipping">Shipping</option>
-								</select>
-								
-								<input type="hidden" name="id" id="id" required>
-							</div>
-							<div class="form-group">
 								<label class="control-label" for="example-text-input">Question</label>
 								<textarea name="question" id="question" placeholder="Enter Question" class="form-control" rows="1"></textarea>
+								<input type="hidden" name="id" id="id" required>
 							</div>
 							<div class="form-group">
 								<label class="control-label" for="example-text-input">Answer</label>

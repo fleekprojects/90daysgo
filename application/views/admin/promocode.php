@@ -224,7 +224,7 @@
    	});
    });
    var dateToday = new Date();
-var dates = $("#from, #to").datepicker({
+   var dates = $("#from, #to").datepicker({
     defaultDate: "+1w",
     minDate: dateToday,
     onSelect: function(selectedDate) {
@@ -246,7 +246,7 @@ var dates = $("#edit_from, #edit_to").datepicker({
 });
  $(document).on("click",".btn-edit",function() {
       $("#id").val($(this).data("id"));
-    $("#code").val($(this).data("code"));
+	  $("#code").val($(this).data("code"));
       $("#descp").val($(this).data("descp"));
       $("#price").val($(this).data("price"));
       $("#edit_from").val($(this).data("valid-from"));
