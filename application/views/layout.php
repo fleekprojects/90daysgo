@@ -22,7 +22,7 @@
 		<a href="<?= base_url()?>" class="_btn_mobile_close">
 			<i class="fa fa-times"></i>
 		</a>
-		<a href="index.html" class="_logo_link">
+		<a href="<?=base_url()?>" class="_logo_link">
 			<img src="<?= base_url(); ?>assets/front/images/logo.png" class="img-responsive _logo" alt="" />
 		</a>
 		
@@ -48,6 +48,7 @@
 	</div>
 </section>
 
+	<?php if(empty($_SESSION['user_id'])): ?>
 	<header>
 		 <div class="container">
 			<div class="row">
@@ -83,6 +84,46 @@
 			</div>
 		 </div>
 	</header>
+	<?php else: ?>
+	<header class="_hdr_dashboard">
+		 <div class="container">
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-4 _header_menu _header_dashboard_left">
+					<a href="javascript:void(0);" class="btn_menu">
+						<i class="fa fa-bars"></i>
+					</a>
+					<ul class="_main_menu">
+						<li>
+							<a href="<?=base_url()?>">Home</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">Product</a>
+						</li>
+						<li>
+							<a href="javascript:;">Workout</a>
+						</li>
+						<li>
+							<a href="<?=base_url()?>cart">Cart</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-4 text-center _header_logo">
+					<a href="<?= base_url()?>" class="_logo_link">
+						<img src="<?=base_url()?>assets/front/images/logo.png" class="img-responsive _logo" alt="" />
+					</a>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-4 _header_cart _header_dashboard_right">
+					<a href="javascript:void(0);" class="btn_menu _btn_dashboard_menu">
+						<i class="fa fa-bars"></i>
+					</a>
+					<a href="javacript:;" class="_header_basket">
+						<img src="<?=base_url()?>assets/front/images/cart_icon.png" alt="" class="img-responsive cart_icon" /><span class="_basket_count"><?= (($this->cart->contents()!="") ? count($this->cart->contents()) : 0) ?></span>
+					</a>
+				</div>
+			</div>
+		 </div>
+	</header>
+	<?php endif; ?>
 	
          <!-- header end here -->
          <?php  $this->load->view($view,$viewData); ?>

@@ -50,13 +50,15 @@
 				<h4>Sub Total <span id="subtotalshow">$<?= $items['subtotal']?>.00</span></h4>
 
 			</div>
+			<input type="hidden" id="course_id" value="<?= $items['id']?>">
+			<input type="hidden" id="price" value="<?= $items['subtotal']?>">
 			<div class="row _btn_rows_checkout">
 				<a href="javascript:;" class="_btn_checkout btn_cart_checkout">
 					<img src="<?= base_url(); ?>assets/front/images/btn_checkout.png" class="img-responsive" />
 				</a>
-				<a href="javascript:;" data-cid="<?= $items['id']?>" data-price="<?= $items['subtotal']?>"   class="_btn_checkout_paypal btn_cart_checkout">
+				<!-- <a href="javascript:;" data-cid="<?= $items['id']?>" data-price="<?= $items['subtotal']?>"   class="_btn_checkout_paypal btn_cart_checkout">
 					<img src="<?= base_url(); ?>assets/front/images/btn_checkout_paypal.png" class="img-responsive" />
-				</a>
+				</a> -->
 				<div id="paypal-button-container"></div>
 			</div>
 			
@@ -128,37 +130,38 @@
 	</section>
 
 <script type="text/javascript">
-	 $(document).on("click","._btn_checkout_paypal",function() {
-      var cid=$(this).data("cid");
-      var price=$(this).data("price");
-      var did=$('#promo_id').val();
-       	$.ajax({
-		  url : baseurl+'Cart/AddOrder',
-		  type: "POST",
-		  data: {cid: cid, price: price, did: did} ,
-		  success: function (data) {
-			if(data!=""){
-			$('#orderid').val(data);
-			$( "#paypal-button-container" ).trigger( "click" );
+	 // $(document).on("click","._btn_checkout_paypal",function() {
+  //     var cid=$(this).data("cid");
+  //     var price=$(this).data("price");
+  //     var did=$('#promo_id').val();
+  //      	$.ajax({
+		//   url : baseurl+'Cart/AddOrder',
+		//   type: "POST",
+		//   data: {cid: cid, price: price, did: did} ,
+		//   success: function (data) {
+		// 	if(data=="nouser"){
+		// 	window.location.href="<?= base_url()?>login";
+		// 	}
+			
+		// 	else{
+		// 	  // $('#orderid').val(data);
+		// 	  // alert(2);
+		// 	     $('.paypal-button').click();
 
-			
-			}
-			
-			else{
-			  $('#cartmsg').html('<b style="color: error;">Error Submitting your request. Please Try Again. </b>');
-			}
-		  },
-		  error: function (xhr, textStatus, errorThrown) 
-		  {
-			console.log(xhr.responseText);
-		  }
-		});
+		// 	}
+		//   },
+		//   error: function (xhr, textStatus, errorThrown) 
+		//   {
+		// 	console.log(xhr.responseText);
+		//   }
+		// });
 
 
       
-   });
+  //  });
 
 var subtotal=$('#subtotal').val();
+var courseid=$('#course_id').val();
 paypal.Button.render({
 env: 'sandbox', // sandbox | production
 // PayPal Client IDs - replace with your own
@@ -176,7 +179,8 @@ return actions.payment.create({
 payment: {
 transactions: [
 {
-amount: { total: subtotal, currency: 'USD' }
+amount: { total: subtotal, currency: 'USD' },
+custom: courseid
 }
 ]
 }
@@ -187,7 +191,7 @@ onAuthorize: function(data, actions) {
 // Make a call to the REST api to execute the payment
 return actions.payment.execute().then(function() {
 
-window.location.href = "<?= base_url()?>"+'ordersubmit';
+console.log(data);
 });
 }
 }, '#paypal-button-container');

@@ -22,16 +22,20 @@
 		public function AddOrder()
 		{
 
-
-			$data['user_id']=$this->session->userdata('user_id');
-			$data['course_id']=$_POST['cid'];
-			$data['total_amount']=$_POST['price'];
-			$data['discount_id']=$_POST['did'];
-			$data['order_code']='90DAYS'.$data['user_id'].$data['course_id'];
-			$data['payment_gateway']=1;
-			$orderid= $this->m_form->insertdatatoid('orders',$data);
-			
-			echo $orderid;
+			if($this->session->userdata('user_id')):
+				$data['user_id']=$this->session->userdata('user_id');
+				$data['course_id']=$_POST['cid'];
+				$data['total_amount']=$_POST['price'];
+				$data['discount_id']=$_POST['did'];
+				$data['order_code']='90DAYS'.$data['user_id'].$data['course_id'];
+				$data['payment_gateway']=1;
+				$data['created_at']=datetime_now;
+				$orderid= $this->m_form->insertdatatoid('orders',$data);
+				
+				echo $orderid;
+			else:
+				echo "nouser";
+			endif;
 
 		}
 		
