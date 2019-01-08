@@ -75,6 +75,8 @@ $route['admin/faqs/(:any)'] = 'admin/Faqs/$1';
 
 $route['admin/contact-queries'] = 'admin/Contactus';
 
+$route['admin/orders'] = 'admin/Orders';
+
 $route['admin/promocode'] = 'admin/PromoCode';
 
 $route['admin/parents'] = 'admin/Parents';
