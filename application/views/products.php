@@ -8,7 +8,7 @@
 			<hr class="_two_hr">
 		</div>
 		<h4 class="_product_price_like_button">$<?= $workout->price?></h4>
-		<h5 style="color:white;"><?= $workout->short_text?></h5>
+		<h5 style="color:white;" class="_cource_slogan"><?= $workout->short_text?></h5>
 	</section>
 	<section class="_btn_add_cart_bar">
 		<div class="container text-center">
@@ -17,7 +17,6 @@
 	</section>
 	
 	<section class="_product_choose_program">
-		<img src="<?= base_url()?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="" />
 		<div class="container">
 			<div class="row title_sec text-center">
 				<h3>Choose a Program</h3>
@@ -78,7 +77,6 @@
 	</section>
 	
 	<section class="_product_before_after">
-	<img src="<?= base_url()?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="" />
 		<div class="container">
 			<div class="row title_sec text-center">
 				<h3>Choose a Program</h3>

@@ -7,7 +7,6 @@
 	</section>
 	
 	<section class="_user_area_weeks">
-		<img src="assets/images/dots-4.png" class="img-responsive _dots_4" alt="" />
 		<div class="container">
 			<div class="row title_sec text-center">
 				<h3>Week</h3>
@@ -25,45 +24,42 @@
 			</div>
 			<div class="_week_days row">
 				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday day_active">
-					<div class="_week_day_inner">
-						<span class="_week_day_title">Monday</span>
-						<span class="_week_day_workout">Chest and Tricep</span>
+					<div class="_week_day_inner">						<a href="#">							<span class="_week_day_title">Monday</span>
+							<span class="_week_day_workout">Chest and Tricep</span>						</a>
 					</div>
 				</div>
 				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday">
-					<div class="_week_day_inner">
+					<div class="_week_day_inner">						<a href="#">
 						<span class="_week_day_title">Tuesday</span>
-						<span class="_week_day_workout">Recovery</span>
+						<span class="_week_day_workout">Recovery</span>						</a>
 					</div>
 				</div>
 				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday">
-					<div class="_week_day_inner">
-						<span class="_week_day_title">Wednesday</span>
-						<span class="_week_day_workout">Back and Biceps</span>
+					<div class="_week_day_inner">						<a href="#">
+						<span class="_week_day_title">Wednesday</span>						<span class="_week_day_workout">Back and Biceps</span>						</a>
 					</div>
 				</div>
 				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday">
-					<div class="_week_day_inner">
-						<span class="_week_day_title">Thursday</span>
-						<span class="_week_day_workout">Legs and Abs</span>
+					<div class="_week_day_inner">						<a href="#">
+						<span class="_week_day_title">Thursday</span>						<span class="_week_day_workout">Legs and Abs</span>						</a>
 					</div>
 				</div>
 				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday">
-					<div class="_week_day_inner">
+					<div class="_week_day_inner">						<a href="#">
 						<span class="_week_day_title">Friday</span>
-						<span class="_week_day_workout">Recovery</span>
+						<span class="_week_day_workout">Recovery</span>						</a>
 					</div>
 				</div>
 				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday">
-					<div class="_week_day_inner">
+					<div class="_week_day_inner">						<a href="#">
 						<span class="_week_day_title">Saturday</span>
-						<span class="_week_day_workout">Rest Day</span>
+						<span class="_week_day_workout">Rest Day</span>						</a>
 					</div>
 				</div>
 				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday">
-					<div class="_week_day_inner">
+					<div class="_week_day_inner">						<a href="#">
 						<span class="_week_day_title">Sunday</span>
-						<span class="_week_day_workout">Chest and Tricep</span>
+						<span class="_week_day_workout">Chest and Tricep</span>						</a>
 					</div>
 				</div>
 			</div>
@@ -71,7 +67,6 @@
 		</div>
 	</section>
 	<section class="_week_ntritions">
-		<img src="assets/images/dots-4.png" class="img-responsive _dots_4" alt="" />
 		<div class="container text-center">
 			<h3>Week 1 Nutritions</h3>
 			<p>

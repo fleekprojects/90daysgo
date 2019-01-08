@@ -457,10 +457,20 @@ section._mobile_nav {
 ._product_banner_inner {
     text-align: center;
     position: absolute;
-    bottom: 60px;
+    bottom: 120px;
     width: 100%;
     left: 0;
     right: 0;
+}
+._cource_slogan {
+    color: #fff;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
 }
 ._product_banner_inner h4 {
     color: #fff;
@@ -486,8 +496,9 @@ section._mobile_nav {
 	left: 0;
 	right: 0;
 	width: auto;
-	max-width: 170px;
-	z-index: 9
+	max-width: 230px;
+	z-index: 9;
+	text-align: center;
 }
 ._btn_add_cart_bar {
     background: #3d7cc9;
@@ -581,6 +592,7 @@ section._mobile_nav {
     font-size: 50px !important;
     font-weight: 900 !important;
 	margin-bottom: 15px !important;
+    margin-top: 70px;
 }
 ._mobile_only {
     display:none;
@@ -780,9 +792,9 @@ section._mobile_nav {
 ._weeks_numbers ul li a {
     color: #454545;
     font-size: 18px;
-    padding: 13px;
+    padding: 13px;transition: 0.8s all;
     border-radius: 40px;
-}
+}._weeks_numbers ul li a:hover {    background: #454545;    color: #fff;    transition: 0.8s all;}
 .active_week a {
     background: #f08b08;
     color: #fff !important;
@@ -1190,13 +1202,13 @@ section._mobile_nav {
     bottom: 0;
     max-width: 100%;
     border-radius: 0 !important;
-	}
+	}	._header_dashboard_right ._header_basket {    display: none;	}	._btn_dashboard_menu {		float: right;	}	._header_dashboard_left {		display: none;	}	._hdr_dashboard ._header_logo {		width: 66%;	}	._hdr_dashboard ._logo_link {		display: table;		margin: 0 auto;		float: left;	}	
 }
 @media screen and (max-width: 640px)
 {
 	._home_banner {
     background-image: url(../images/header_moile_bg.jpg);
-	}		
+	}._header_dashboard_right._header_cart {    width: 34%;	}	
 	._home_banner_inner {
     height: auto;
     display: table;
