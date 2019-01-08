@@ -65,32 +65,36 @@ $route['blogs'] = 'Blogs';
 $route['blog/(:any)'] = 'Blogs/detail/$1';
 $route['contact-us'] = 'Contact';
 
-$route['admin/contact-queries'] = 'admin/Contact';
-$route['admin/parents'] = 'admin/Parents';
-$route['admin/parents/(:any)'] = 'admin/Parents/$1';
-$route['admin/courses'] = 'admin/Courses';
-$route['admin/courses/(:any)'] = 'admin/Courses/$1';
-$route['admin/courseimages/addimages'] = 'admin/CourseImage/addFeatureRow';
-$route['admin/courseimages/(:any)'] = 'admin/CourseImage/index/$1';
-$route['admin/courseweeks/(:any)'] = 'admin/CourseWeeks/index/$1';
-$route['admin/add-course-week/(:any)'] = 'admin/CourseWeeks/AddCourseWeek/$1';
-$route['admin/courseplans/(:any)/(:any)'] = 'admin/CoursePlans/index/$1/$2';
-$route['admin/promocode'] = 'admin/PromoCode';
-
-
+/*----------------------------------- Admin Routes -----------------------------------*/
+$route['admin/posts'] = 'admin/Posts';
+$route['admin/posts/(:any)'] = 'admin/Posts/$1';
+$route['admin/posts/edit/(:any)'] = 'admin/Posts/Edit/$1';
 
 $route['admin/faqs'] = 'admin/Faqs';
 $route['admin/faqs/(:any)'] = 'admin/Faqs/$1';
-$route['admin/posts'] = 'admin/Blogs';
-$route['admin/posts/(:any)'] = 'admin/Blogs/$1';
-$route['admin/posts/edit/(:any)'] = 'admin/Blogs/Edit/$1';
+
+$route['admin/contact-queries'] = 'admin/Contactus';
+
+$route['admin/promocode'] = 'admin/PromoCode';
+
+$route['admin/parents'] = 'admin/Parents';
+$route['admin/parents/(:any)'] = 'admin/Parents/$1';
+
+$route['admin/courses'] = 'admin/Courses';
+$route['admin/courses/(:any)'] = 'admin/Courses/$1';
+
+$route['admin/courseimages/addimages'] = 'admin/CourseImage/addFeatureRow';
+$route['admin/courseimages/(:any)'] = 'admin/CourseImage/index/$1';
+
+$route['admin/courseweeks/(:any)'] = 'admin/CourseWeeks/index/$1';
+$route['admin/add-course-week/(:any)'] = 'admin/CourseWeeks/AddCourseWeek/$1';
+
+$route['admin/courseplans/(:any)/(:any)'] = 'admin/CoursePlans/index/$1/$2';
+
 $route['admin'] = 'admin/Admin';
 $route['admin/(:any)'] = 'admin/Admin/$1';
+/*----------------------------------- Admin Routes -----------------------------------*/
 
-$route['sell/(:any)/(:any)/(:any)/(:any)'] = 'Sell/condition/$1/$2/$3/$4';
-$route['sell/(:any)/(:any)/(:any)'] = 'Sell/storage/$1/$2/$3';
-$route['sell/(:any)/(:any)'] = 'Sell/providers/$1/$2';
-$route['sell/(:any)'] = 'Sell/models/$1';
 
 $route['(:any)'] = 'Blogs/page/$1';
 

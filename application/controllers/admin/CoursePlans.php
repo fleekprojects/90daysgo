@@ -19,6 +19,7 @@
 			$viewdata['course_id']=$cid;
 			$viewdata['week_id']=$wid;
 			$weekarr=array('week_id'=>$wid);
+			$viewdata['parent']=$this->Dmodel->get_data("SELECT CONCAT('Week#',w.week_no,'-',c.title,'(',p.title,')') AS title FROM course_weeks w LEFT JOIN courses c ON w.course_id=c.id LEFT JOIN parents p ON c.parent_id=p.id WHERE w.id=".$wid);
 			$viewdata['records']=$this->Dmodel->get_tbl_whr_arr($this->table,$weekarr);
 			$this->LoadAdminView($this->viewname,$viewdata);
 		}

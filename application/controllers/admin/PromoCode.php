@@ -19,7 +19,7 @@
 			$this->Dmodel->checkLogin();
 			$data=$_POST;
 			if($this->Dmodel->IFExist($this->table,'code',$data['code'])){
-				$data['created_at']=date_now;
+				$data['created_at']=datetime_now;
 				$data['status']=1;
 				$exec=$this->Dmodel->insertdata($this->table,$data);		
 				echo $exec;
@@ -33,7 +33,7 @@
 			$this->Dmodel->checkLogin();
 			$data=$_POST;
 			if($this->Dmodel->IFExistEdit($this->table,'code',$data['code'],$data['id'])){
-				$data['updated_at']=date_now;
+				$data['updated_at']=datetime_now;
 				$exec=$this->Dmodel->update_data($this->table,$data['id'],$data,'id');
 				echo $exec;
 			}

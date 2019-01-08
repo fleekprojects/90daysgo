@@ -31,7 +31,7 @@
                                   <select class="form-control search-select" id="noofweeks" name="" >
                                     <option value=""> Please Select</option>
                                      <?php for ($i=6; $i <= 12 ; $i++) { 
-                                      echo '<option value="'.$i.'"> Week '.$i.'</option>';
+                                      echo '<option value="'.$i.'">'.$i.' Weeks</option>';
                                        } ?>
                                   </select>
                                  </div> 
@@ -56,7 +56,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
          <div class="x_panel">
             <div class="x_title">
-               <h2><?= $category[0]['title']." ".$title;?> |<small>View</small></h2>
+               <h2><?= $parent[0]['title']." ".$title;?> |<small>View</small></h2>
                <?php  if(count($records) > 0 ) { ?>
                <button type="button" class="btn btn-danger margin pull-right" onClick="doDelete()" style="margin-right:auto" >Delete</button>
                <?php } ?>
@@ -124,7 +124,7 @@
                <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                   </button>
-                  <h4 class="modal-title" id="myModalLabel"><?= $category[0]['title']." ".$title;?> |<small>Edit</small></h4>
+                  <h4 class="modal-title" id="myModalLabel"><?= $parent[0]['title']." ".$title;?> |<small>Edit</small></h4>
                </div>
                <div class="modal-body">
                   <div id="msge"></div>
