@@ -9,7 +9,11 @@
 			</a>
 		</div>
 	</section>
-	<?php if(count($cart) > 0): ?>
+	<?php 
+
+	if(count($cart) > 0):
+
+	 ?>
 	<section class="_full_cart_content">
 		<?php foreach($cart as $items): ?>
 		<div class="container">
@@ -39,7 +43,7 @@
 					<input type="text" required="" id="promo_code" placeholder="Enter promo code here" class="_promo_field" /> 
 					<input type="button" onclick="PromoApply()" value="Apply" class="btn_blue _promo_button"/>
 				<div id="promo_show" style="display: none;">
-					<input type="hidden" id="promo_id">
+					<input type="hidden" id="discount">
 					<h3 class="pull-left" id="promo-code"></h3>
 					<h4 class="pull-right" id="promo-rate"></h4>
 				</div>
@@ -47,15 +51,27 @@
 			<div class="row _cart_sub_total">
 				<h4>Sub Total <span id="subtotalshow">$<?= $items['subtotal']?>.00</span></h4>
 
-			</div>
-			<div class="row _btn_rows_checkout">
+			</div>	
+					<div class="row _btn_rows_checkout">
 				<a href="javascript:;" class="_btn_checkout btn_cart_checkout">
 					<img src="<?= base_url(); ?>assets/front/images/btn_checkout.png" class="img-responsive" />
 				</a>
-				<a href="javascript:;" data-cid="<?= $items['id']?>" data-price="<?= $items['id']?>" data-="<?= $items['id']?>"  class="_btn_checkout_paypal btn_cart_checkout">
+				<a href="javascript:;" id="paypal-click" data-course="<?= $items['name']?>" data-price="<?= $items['subtotal']?>" class="_btn_checkout_paypal btn_cart_checkout">
 					<img src="<?= base_url(); ?>assets/front/images/btn_checkout_paypal.png" class="img-responsive" />
 				</a>
-				<div id="paypal-button-container"></div>
+				<!-- <div id="paypal-button-container"></div> -->
+
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" id="paypalform" method="post">
+  <input type="hidden" name="cmd" value="_xclick">
+  <input type="hidden" name="business" value="seller@designerfotos.com">
+  <input type="hidden" name="item_name" value="<?= $items['name']?>">
+  <input type="hidden" name="item_number" id="item_number" >
+  <input type="hidden" name="amount" id="amount" value="<?= $items['subtotal']?>">
+  <input type="hidden" name="quantity" value="1">
+  <input type="hidden" name="currency_code" value="USD">
+  <input type="hidden" name="return" value="<?=base_url()?>Cart/Paymentdone">
+  
+</form>
 			</div>
 			
 		</div>
@@ -124,40 +140,36 @@
 			</div>
 		</div>
 	</section>
+	<script type="text/javascript">
 
-<script type="text/javascript">
-	var subtotal=$('#subtotal').val();
-paypal.Button.render({
-env: 'sandbox', // sandbox | production
-// PayPal Client IDs - replace with your own
-// Create a PayPal app: https://developer.paypal.com/developer/applications/create
-client: {
-sandbox:    'AQdevkIiLL2H0Fl_V88qHI9J2VAq65Kq05PPoNPdw6uds_JUXvyRtFLyhp-hRfhBxumrXB0hQRzQPV6F',
-production: '90days'
-},
-// Show the buyer a 'Pay Now' button in the checkout flow
-commit: true,
-// payment() is called when the button is clicked
-payment: function(data, actions) {
-// Make a call to the REST api to create the payment
-return actions.payment.create({
-payment: {
-transactions: [
-{
-amount: { total: subtotal, currency: 'USD' }
-}
-]
-}
-});
-},
-// onAuthorize() is called when the buyer approves the payment
-onAuthorize: function(data, actions) {
-// Make a call to the REST api to execute the payment
-return actions.payment.execute().then(function() {
+ $(document).on("click","#paypal-click",function() {
+      var course=$(this).data("course");
+      var price=$(this).data("price");
+      var discount=$('#discount').val();
+      
+      $.ajax({
+		  url : 'Cart/AddOrder',
+		  type: "POST",
+		  data: {course: course,price: price,discount: discount} ,
+		  success: function (data) {
+			if(data == 0){
+				window.location='<?=base_url()?>login';
+			 
+			}
+			else if(data!=""){
+				$('#item_number').val(data);
+			    $("#paypalform").submit();
+			}
+			else{
+				$('#profilemsg').html('<b style="color: error;">Error Submitting your request. Please Try Again. </b>');
+			}
+		  },
+		  error: function (xhr, textStatus, errorThrown) 
+		  {
+			console.log(xhr.responseText);
+		  }
+		});
+		
+	});
 
-window.location.href = "<?= base_url()?>"+'ordersubmit';
-});
-}
-}, '#paypal-button-container');
-</script>
-	
+	</script>

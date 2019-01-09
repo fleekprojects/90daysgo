@@ -53,8 +53,7 @@ class Model_form extends CI_Model {
 				'expire' => '2147483647',                                                               
 				'secure' => TRUE
 			);
-			print_r($cookie);
-			die;
+			
 		    $this->input->set_cookie($cookie);
 		}
 		$this->db->where('user_name',$user_name);
@@ -146,6 +145,12 @@ class Model_form extends CI_Model {
 		$orders= $this->db->get('orders')->result_array();
 		return $orders;
 	}
+
+	function insertdatatoid($tbl,$data){
+			 $this->db->insert($tbl,$data);
+			 $query=$this->db->insert_id();
+			 return $query;
+		}
 		
 	
    

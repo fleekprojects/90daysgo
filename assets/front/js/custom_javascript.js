@@ -109,9 +109,10 @@ var code=$('#promo_code').val();
 				var subtotal = sub-subtotal;
 			  $('#promo_show').show();
 			  $('#promo-code').html(promo.code);
-			  $('#promo_id').val(promo.id);
+			  $('#discount').val(promo.code);
 			  $('#promo-rate').html(promo.price+'%');
 			  $('#subtotalshow').html('$'+subtotal+'.00');
+			  $('#amount').val(subtotal);
 			  
 			}
 		  },
