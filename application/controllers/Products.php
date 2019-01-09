@@ -15,9 +15,10 @@
 			$viewdata['workout']=$this->m_form->get_tbl_whr_key_row('courses','slug',$id);
 			$viewdata['workoutfeatures']=$this->Dmodel->get_tbl_whr_arr('course_features',array('course_id'=>$viewdata['workout']->id));
 			$workoutplans=$this->Dmodel->get_tbl_whr_arr('course_plan',array('course_id'=>$viewdata['workout']->id));
+
 			$viewdata['workoutprogram']=7 * count($workoutplans);
 			
-			$viewdata['workoutplans']=$this->Dmodel->get_tbl_whr_arr('course_plan',array('week_id'=>$viewdata['workoutplans']->week_id));
+
 			$viewdata['courses']=$this->m_form->get_courses_limit_whr_parentid(4,$viewdata['workout']->parent_id,$viewdata['workout']->id);
 			
 
@@ -45,8 +46,8 @@
 		        'qty'     => 1,
 		        'price'   => $course->price,
 		        'name'    => $course->title,
-		        'image'    => $course->image,
-		        'coupon'         => $coupon
+		        'image'   => $course->image,
+		        'coupon'  => $coupon
 				);
 
 				$this->cart->insert($data);
@@ -71,7 +72,8 @@
 
 		 public function CheckPromo()
 		 {
-		 	
+		 	$this->session->unset_userdata('code');
+		 
 		 	$data=$_POST;
 
 		 	
@@ -79,7 +81,7 @@
 		 	if($this->Dmodel->IFExist('promo_code','code',$data['code'])){
 				echo 2;
 			}
-			else if($this->session->userdata('code')!=''){
+			else if($this->session->userdata('code')!=""){
 		 		echo 0;
 			}
 		 		

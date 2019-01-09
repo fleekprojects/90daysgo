@@ -7,6 +7,7 @@
 			$this->load->model('Model_form','m_form');
 			$this->load->library('user_agent');
 			$this->load->library('cart'); 
+			$this->load->library('session'); 
 		}
 		
 		public function index(){
@@ -16,14 +17,18 @@
 		}
 		public function thankyou()
 		{
-			$viewdata="";
-			$this->LoadView('thankyou',$viewdata);
+
+			if(count($this->cart->contents()) > 0):
+				$this->cart->destroy();
+				$this->session->unset_userdata('code');
+			 $viewdata="";
+			 $this->LoadView('thankyou',$viewdata);
+			else:
+             redirect(base_url());
+			endif;
+
 		}
-		public function ordersubmit()
-		{
-			print_r($_POST);
-			die;
-		}
+		
 		
 	}
 

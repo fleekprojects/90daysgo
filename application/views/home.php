@@ -6,7 +6,7 @@
 			<h4>tomorrow</h4>
 			<hr class="_one_hr" />
 			<hr class="_two_hr"/>
-			<a href="#" class="btn_theme">
+			<a href="<?=base_url()?>login" class="btn_theme">
 				Signin
 			</a>
 		</div>
