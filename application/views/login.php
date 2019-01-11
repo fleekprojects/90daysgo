@@ -14,7 +14,7 @@
 			<input type="submit" value="SignIn" class="btn_user_s btn_blue_login" />
 			</form>
 			<p>
-				<a href="#" class="_no_account pull-left"><i class="fa fa-circle-o"></i> Don't have account?</a>
+				<a href="<?=base_url()?>signup" class="_no_account pull-left"><i class="fa fa-circle-o"></i> Don't have account?</a>
 				<a href="#" class="_forget_password pull-right"> Forget Password</a>
 			</p>
 		</div>

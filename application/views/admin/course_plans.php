@@ -251,7 +251,7 @@
 
       $.ajax({
          type: "POST",
-         url: '<?=base_url()?>Admin/CoursePlans/addSetRow',
+         url: '<?=base_url()?>admin/courseplans/addSetRow',
          data: {plan_id:planid},
          success: function (data) {
             $('#single-row').append(data);
@@ -272,7 +272,7 @@
          $.ajax({
             type: 'post',
             data: {'sets':sets,'reps':reps,'plan_id':plan_id,'id':id},
-            url: '<?=base_url()?>Admin/CoursePlans/saveSet',
+            url: '<?=base_url()?>admin/courseplans/saveSet',
             dataType: 'json',
             success: function (res) {
                $('#msgm').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>×</a><strong>Set Saved</strong></div>");
@@ -297,7 +297,7 @@
          $.ajax({
             type: 'post',
             data: {'id':id},
-            url: '<?=base_url()?>Admin/CoursePlans/delSet',
+            url: '<?=base_url()?>admin/courseplans/delSet',
             dataType: 'json',
             success: function (res) {
                $('#msgm').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>×</a><strong>Set Deleted</strong></div>");

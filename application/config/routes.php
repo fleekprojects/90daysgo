@@ -94,6 +94,7 @@ $route['admin/courseimages/(:any)'] = 'admin/CourseImage/index/$1';
 $route['admin/courseweeks/(:any)'] = 'admin/CourseWeeks/index/$1';
 $route['admin/add-course-week/(:any)'] = 'admin/CourseWeeks/AddCourseWeek/$1';
 
+$route['admin/courseplans/(:any)'] = 'admin/CoursePlans/$1';
 $route['admin/courseplans/(:any)/(:any)'] = 'admin/CoursePlans/index/$1/$2';
 
 $route['admin'] = 'admin/Admin';
