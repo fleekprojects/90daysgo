@@ -127,6 +127,14 @@ class Model_form extends CI_Model {
 			$query = $this->db->get($tbl);
 			return $query->row();
 	}
+	function get_nextcourseplan($dayno,$weekid){	
+		$this->db->where('day_no >',$dayno);
+		$this->db->where('week_id',$weekid);
+		$this->db->order_by('day_no', 'ASC');
+		$this->db->limit(1);
+			$query = $this->db->get('course_plan');
+			return $query->row();
+	}
 	function update_total($oid){	
 		$this->db->select_sum('subtotal');
 		$order_total= $this->db->get_where('order_details',array('order_id' => $oid))->row();
