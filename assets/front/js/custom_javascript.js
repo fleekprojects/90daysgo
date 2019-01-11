@@ -23,6 +23,41 @@ $("#userlog").submit(function(e){
 			});
 
 		});
+		$("#usersignup").submit(function(e){
+			e.preventDefault();
+			var pass=$('#password').val();
+			var cpass=$('#cpassword').val();
+			if(pass != cpass){
+				$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b> Password Not Matched</b></div>');
+			}
+			else{
+			var value =$("#usersignup").serialize() ;
+			$.ajax({
+				url:baseurl+'Signup/InsertRecord',
+				type:'POST',
+				data:value,
+				success:function(result){
+					if(result==0){
+						$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b>Email Address Already Exists</b></div>');
+						$("#msg").show();
+						setTimeout(function(){$("#msg").hide(); }, 3000);
+
+					}
+					else{	
+						
+						$("#msg").html('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b>Successfully Registered ! Check your mail</b></div>');
+						$("#msg").show();
+						setTimeout(function(){location.href=baseurl+"login"} , 5000);  
+						
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+					alert(xhr.responseText);
+				}
+			});
+		 }
+
+		});
 
 function Addtocart(id){
 
@@ -122,6 +157,31 @@ var code=$('#promo_code').val();
 		  }
 		});
 		
+	
+	
+}
+
+function weekClick(id){
+	$('.weeks').removeClass('active_week');
+	$('#week'+id).addClass('active_week');
+		$.ajax({
+		  url : baseurl+'Dashboard/weekShow',
+		  type: "POST",
+		  data: {weekid: id} ,
+		  success: function (data) {
+			if(data !=""){
+			  $('.planshow').html(data);
+			}
+			
+			else{
+			  $('.planshow').html('<b style="color: error;">No Result Found </b>');
+			}
+		  },
+		  error: function (xhr, textStatus, errorThrown) 
+		  {
+			console.log(xhr.responseText);
+		  }
+		});
 	
 	
 }

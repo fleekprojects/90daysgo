@@ -28,7 +28,11 @@
 		
 		<ul class="_mobile_menu">
 			<li>
+				<?php if(!empty($this->session->userdata('user_id'))): ?>
+				<a href="<?= base_url()?>dashboard">Home</a>
+			<?php else: ?>
 				<a href="<?= base_url()?>">Home</a>
+			<?php endif; ?>
 			</li>
 			<li>
 				<a href="javascript:void(0);">Product</a>
@@ -36,8 +40,9 @@
 			<li>
 				<a href="javascript:;">Workout</a>
 			</li>
+			
 			<li>
-				<a href="javascript:;">Cart</a>
+				<a href="<?= base_url()?>cart">Cart</a>
 			</li>
 		</ul>
 		
@@ -57,7 +62,11 @@
 					</a>
 					<ul class="_main_menu">
 						<li>
+							<?php if(!empty($this->session->userdata('user_id'))): ?>
+							<a href="<?= base_url()?>dashboard">Home</a>
+						<?php else: ?>
 							<a href="<?= base_url()?>">Home</a>
+						<?php endif; ?>
 						</li>
 						<li>
 							<a href="javascript:void(0);">Product</a>

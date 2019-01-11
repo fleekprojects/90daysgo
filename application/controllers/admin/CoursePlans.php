@@ -30,6 +30,7 @@
 			$arr=array('day_no'=>$data['day_no'], 'week_id'=>$data['week_id']);
 			if($this->Dmodel->chk_num($this->table,$arr) == 0){
 				$data['created_at']=datetime_now;
+				$data['slug']=$this->slugify($data['title']);
 				$exec=$this->Dmodel->insertdata($this->table,$data);
 				$last_id=$this->db->insert_id();
 				if(isset($_FILES['video']) && $_FILES['video']['tmp_name']){
@@ -72,6 +73,7 @@
 			$arr=array('day_no'=>$data['day_no'], 'week_id'=>$data['week_id'], 'id !=' => $data['id']);
 			if($this->Dmodel->chk_num($this->table,$arr) == 0){
 				$last_id=$data['id'];
+				$data['slug']=$this->slugify($data['title']);
 				$data['updated_at']=datetime_now;
 				$exec=$this->Dmodel->update_data($this->table,$data['id'],$data,'id');
 				
@@ -126,6 +128,40 @@
 			$data=$this->Dmodel->toggle_status($this->table,$id);
 			echo $data; 
 		}
+		public function addSetRow(){
+
+			if(isset($_POST['plan_id']) && $_POST['plan_id']>0){
+				$plan_id=$_POST['plan_id'];
+				$data['plan_sets']=$this->Dmodel->get_tbl_whr_arr('plan_sets',array('plan_id'=>$plan_id));
+
+			}
+			$data['sets']=(isset($_POST['sets']) ? $_POST['sets'] :"");
+			$data['reps']=(isset($_POST['reps']) ? $_POST['reps'] :"");
+
+			$this->load->view('admin/sets_row', $data);
+		}
+		public function saveSet(){
+			$data=$_POST;
+			if($data['id'] == 0){
+				$data['created_at']= datetime_now;
+					$exec=$this->Dmodel->insertdata('plan_sets',$data);
+			} 
+			else{
+				$whr_arr=array('plan_id'=>$data['plan_id'],'sets'=>$data['sets'],'id !=' => $data['id']);
+				$chk_num=$this->Dmodel->chk_num('plan_sets',$whr_arr);
+				if($chk_num == 0){
+					$data['updated_at']=datetime_now;
+					$rec_id=$data['id'];
+					$exec=$this->Dmodel->update_data('plan_sets',$rec_id,$data,'id');
+				}
+			}
+			echo $exec;
+		}
+		public function delSet(){
+			$exec=$this->Dmodel->delete_rec($_POST['id'],'id','plan_sets');
+			echo $exec;
+		}
+	
 		
 
 	}

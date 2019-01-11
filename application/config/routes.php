@@ -52,9 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'Home';
 $route['track-your-order'] = 'Track';
+$route['signup'] = 'Signup';
+$route['verify/(:any)'] = 'Signup/verify/$1';
 $route['login'] = 'Login/login';
 $route['logout'] = 'Login/logout';
 $route['dashboard'] = 'Dashboard';
+$route['dashboard-workout/(:any)'] = 'DashboardWorkout/index/$1';
 $route['thankyou'] = 'Dashboard/thankyou';
 $route['workout/(:any)/(:any)'] = 'Products/index/$1/$2';
 $route['cart'] = 'Cart';
