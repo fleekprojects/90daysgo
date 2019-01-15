@@ -11,8 +11,10 @@
 
 <link href="<?= base_url(); ?>assets/front/css/custom.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -30,6 +32,7 @@
 			<li>
 				<?php if(!empty($this->session->userdata('user_id'))): ?>
 				<a href="<?= base_url()?>dashboard">Home</a>
+
 			<?php else: ?>
 				<a href="<?= base_url()?>">Home</a>
 			<?php endif; ?>
@@ -40,10 +43,15 @@
 			<li>
 				<a href="javascript:;">Workout</a>
 			</li>
-			
+
 			<li>
 				<a href="<?= base_url()?>cart">Cart</a>
 			</li>
+			<?php if(!empty($this->session->userdata('user_id'))): ?>
+						<li>
+							<a href="<?= base_url()?>logout">Logout</a>
+						</li>
+						<?php endif; ?>
 		</ul>
 		
 		<p class="_mobile_policy">
@@ -77,6 +85,11 @@
 						<li>
 							<a href="<?= base_url()?>cart">Cart</a>
 						</li>
+						<?php if(!empty($this->session->userdata('user_id'))): ?>
+						<li>
+							<a href="<?= base_url()?>logout">Logout</a>
+						</li>
+						<?php endif; ?>
 					</ul>
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-4 text-center _header_logo">
@@ -172,7 +185,6 @@
 </div>
 
 
-
 <script>
 	var baseurl="<?= base_url()?>";
 	jQuery(document).ready(function($){
@@ -206,7 +218,44 @@
 		} // End if
 		});
 	});
+var handler = StripeCheckout.configure({
+  key: 'pk_test_1vbqHzMFJMtGk8QbiMCkqMW0',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png'
+  locale: 'auto',
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    // Get the token ID to your server-side code for use.
+    
+  },
+  opened: function() {
+  	console.log("Form opened");
+  },
+  closed: function() {
+  	console.log("Form closed");
+  }
+});
+
+$('#stripe-click').on('click', function(e) {
+
+	var subtotal=$('#subtotal').val();
+  // Open Checkout with further options:
+  handler.open({
+    name: '90daysgo',
+    description: '2 widgets',
+    amount: subtotal
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+$(window).on('popstate', function() {
+  handler.close();
+});
+
+
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="<?= base_url(); ?>assets/front/js/custom_javascript.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
-	class DashboardWorkout extends MY_Controller {
+	class StartWorkout extends MY_Controller {
 		public function __construct(){
 			parent::__construct();
 			$this->load->model('Model_form','m_form');
@@ -12,17 +12,17 @@
 		
 		public function index($slug){
 			$this->Dmodel->checkUserLogin();
-			if(!empty($uworkout=$this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$this->session->userdata('user_id')))){
+				$userid=$this->session->userdata('user_id');
+				$viewdata['startworkoutexist']=$this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$userid);	
+				$viewdata['coursedetails']=$this->m_form->get_tbl_whr_key_row('courses','slug',$slug);
+				
+				$courarr=array('course_id'=>$viewdata['coursedetails']->id);
+				$viewdata['weeks']=$this->Dmodel->get_tbl_whr_arr('course_weeks',$courarr);
 
-					$this->Dmodel->update_data('users_start_workout',$this->session->userdata('user_id'),array('current_workout'=>$slug),'user_id');
-				}
-			$viewdata['courseplan']=$this->m_form->get_tbl_whr_key_row('course_plan','slug',$slug);
-			$viewdata['coursedetails']=$this->Dmodel->get_tbl_whr_row('courses',$viewdata['courseplan']->course_id);
-			$viewdata['plansets']=$this->Dmodel->get_tbl_whr_arr('plan_sets',array('plan_id'=>$viewdata['courseplan']->id));
-			$nextdayno=$viewdata['courseplan']->day_no;
-			$viewdata['nextcourseplan']=$this->m_form->get_nextcourseplan($nextdayno,$viewdata['courseplan']->week_id);
+				$viewdata['courseplans']=$this->Dmodel->get_tbl_whr_arr('course_plan',array('week_id'=>$viewdata['weeks'][0]['id']));
+		
 			
-			$this->LoadView('dashboard-workout',$viewdata);
+			$this->LoadView('start-workout',$viewdata);
 		}
 		public function thankyou()
 		{
@@ -45,7 +45,7 @@
 			$html="";
 			foreach($courseplans as $courseplan){
 				$html .='	<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday ">
-					<div class="_week_day_inner">						<a href="#">';
+					<div class="_week_day_inner">						<a href="'.base_url().'dashboard-workout/'.$courseplan['slug'].'">';
 							if($courseplan['day_no']==1):
 							$html .='<span class="_week_day_title">Monday</span>';
 							elseif($courseplan['day_no']==2):
@@ -69,6 +69,19 @@
 					echo $html;
 
 
+
+		}
+		public function StartnowWorkout()
+		{
+			$this->Dmodel->checkUserLogin();
+			$userid=$this->session->userdata('user_id');
+			$data['user_id']=$userid;
+			$data['start_workout_time']=datetime_now;
+			$data['created_at']=datetime_now;
+
+			$this->Dmodel->insertdata('users_start_workout',$data);
+			
+			echo 'done';
 
 		}
 		

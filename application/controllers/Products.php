@@ -72,23 +72,18 @@
 
 		 public function CheckPromo()
 		 {
-		 	$this->session->unset_userdata('code');
-		 
 		 	$data=$_POST;
-
-		 	
-		 	
+		 	$promo=$this->m_form->get_tbl_whr_key_row('promo_code','code',$data['code']);
 		 	if($this->Dmodel->IFExist('promo_code','code',$data['code'])){
 				echo 2;
 			}
 			else if($this->session->userdata('code')!=""){
-		 		echo 0;
+		 		echo json_encode($promo);
 			}
 		 		
 			else{
 				
 				$this->session->set_userdata('code',$data['code']);
-				$promo=$this->m_form->get_tbl_whr_key_row('promo_code','code',$data['code']);
 				$usage=$promo->code_usage;
 				$times=$promo->valid_times;
 				if($usage > $times):

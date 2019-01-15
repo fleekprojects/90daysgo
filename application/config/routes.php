@@ -57,6 +57,7 @@ $route['verify/(:any)'] = 'Signup/verify/$1';
 $route['login'] = 'Login/login';
 $route['logout'] = 'Login/logout';
 $route['dashboard'] = 'Dashboard';
+$route['start-workout/(:any)'] = 'StartWorkout/index/$1';
 $route['dashboard-workout/(:any)'] = 'DashboardWorkout/index/$1';
 $route['thankyou'] = 'Dashboard/thankyou';
 $route['workout/(:any)/(:any)'] = 'Products/index/$1/$2';

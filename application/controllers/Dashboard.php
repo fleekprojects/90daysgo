@@ -13,17 +13,23 @@
 		public function index(){
 			$this->Dmodel->checkUserLogin();
 			$userid=$this->session->userdata('user_id');
-			$userorders=$this->m_form->get_tbl_whr_key_row('orders','user_id',$userid);
-			$viewdata['coursedetails']=$this->m_form->get_tbl_whr_key_row('courses','title',$userorders->course_name);
-			$courarr=array('course_id'=>$viewdata['coursedetails']->id);
-			$viewdata['weeks']=$this->Dmodel->get_tbl_whr_arr('course_weeks',$courarr);
+			$whr_arr=array('user_id'=>$userid);
+			$chk_num=$this->Dmodel->chk_num('orders',$whr_arr);
 
-			$viewdata['courseplans']=$this->Dmodel->get_tbl_whr_arr('course_plan',array('week_id'=>$viewdata['weeks'][0]['id']));
+			if($chk_num >0):
+				$orderarr=array('user_id'=>$userid);
+				$userorders=$this->Dmodel->get_tbl_whr_arr('orders',$orderarr);
+				foreach ($userorders as $userorder) {
+					$userorderids[]=$userorder['course_name'];
+
+				}
+				$viewdata['ordercourses']=$this->Dmodel->get_tbl_whr_in('courses','Title',$userorderids);
+				
+
+			else:
+				redirect(base_url().'cart');
+			endif;	
 			
-
-
-			
-
 			$this->LoadView('dashboard',$viewdata);
 		}
 		public function thankyou()

@@ -21,8 +21,22 @@ class Model_form extends CI_Model {
 		$query = $this->db->get_where('courses', array('courses.status'=>1,'parent_id'=>1));
 		return $query->result_array();
 	}
+	function get_home_course_men_id_not($slug){
+
+		$this->db->limit(2);
+		$this->db->where('title !=',$slug);
+		$query = $this->db->get_where('courses', array('courses.status'=>1,'parent_id'=>1));
+		
+		return $query->result_array();
+	}
 	function get_home_course_women(){
 		$this->db->limit(2);
+		$query = $this->db->get_where('courses', array('courses.status'=>1,'parent_id'=>2));
+		return $query->result_array();
+	}
+	function get_home_course_women_id_not($slug){
+		$this->db->limit(2);
+		$this->db->where('title !=',$slug);
 		$query = $this->db->get_where('courses', array('courses.status'=>1,'parent_id'=>2));
 		return $query->result_array();
 	}
