@@ -15,8 +15,20 @@
 			$viewdata['cart']=$this->cart->contents();
 			$viewdata['mens']=$this->Dmodel->get_tbl_whr_row('parents',1);
 			$viewdata['womens']=$this->Dmodel->get_tbl_whr_row('parents',2);
-			$viewdata['course_mens']=$this->m_form->get_home_course_men();
-			$viewdata['course_womens']=$this->m_form->get_home_course_women();
+			if($userid=$this->session->userdata('user_id')):
+				$uorder=$this->m_form->get_tbl_whr_key_row('orders','user_id',$userid);
+				if(!empty($uorder)):
+				$viewdata['course_mens']=$this->m_form->get_home_course_men_id_not($uorder->course_name);
+				$viewdata['course_womens']=$this->m_form->get_home_course_women_id_not($uorder->course_name);
+				else:
+					$viewdata['course_mens']=$this->m_form->get_home_course_men();
+				$viewdata['course_womens']=$this->m_form->get_home_course_women();
+				endif;
+			else:
+				$viewdata['course_mens']=$this->m_form->get_home_course_men();
+				$viewdata['course_womens']=$this->m_form->get_home_course_women();
+			endif;
+
 			$this->LoadView('cart',$viewdata);
 		}
 		public function AddOrder()
@@ -27,7 +39,11 @@
 					$data['course_name']=$_POST['course'];
 					$data['total_amount']=$_POST['price'];
 					$data['discount_code']=$_POST['discount'];
-					$data['payment_gateway']=1;
+					if(isset($_POST['payment_gateway']) && $_POST['payment_gateway']=='stripe'):
+						$data['payment_gateway']=2;
+					else:
+						$data['payment_gateway']=1;
+					endif;
 					$data['created_at']=datetime_now;
 					$orderid= $this->m_form->insertdatatoid('orders',$data);
 					

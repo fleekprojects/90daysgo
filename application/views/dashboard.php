@@ -1,61 +1,37 @@
-<section class="_dashboard_banner" style="background-image:url(<?= base_url()?>assets/front/uploads/courses/<?= $coursedetails->banner_image ?>);">
+<section class="_dashboard_banner" style="background-image:url(<?= base_url()?>assets/front/images/banner.jpg">
 		<div class="_dashboard_banner_inner">
-			<a href="#" class="btn_blue">
+			<!-- <a href="#" class="btn_blue">
 				Start Your Workout
-			</a>
+			</a> -->
 		</div>
 	</section>
 	
-	<section class="_user_area_weeks">
+		<section class="_product_before_after">
 		<div class="container">
 			<div class="row title_sec text-center">
-				<h3>Week</h3>
-			</div>
-			<div class="row _weeks_numbers">
-				<div class="col-md-12 text-center">
-					<ul>
-						<?php foreach($weeks as $week): ?>
-						<li class="<?= ($week['week_no']==1 ? 'active_week' : '')?> weeks" id="week<?=$week['id']?>">
-							<a href="javascript:;" onclick="weekClick(<?=$week['id']?>)"><?=$week['week_no']?></a>
-						</li>
-					<?php  endforeach; ?>
-					</ul>
-				</div>
-			</div>
-			<div class="_week_days row planshow">
-				<?php  foreach($courseplans as $courseplan): ?>
-				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday ">
-					<div class="_week_day_inner">						<a href="<?=base_url()?>dashboard-workout/<?=$courseplan['slug']?>">
-						<?php if($courseplan['day_no']==1):
-							echo '<span class="_week_day_title">Monday</span>';
-							elseif($courseplan['day_no']==2):
-							echo'<span class="_week_day_title">Tuesday</span>';
-							elseif($courseplan['day_no']==3):
-							echo'<span class="_week_day_title">Wednesday</span>';
-							elseif($courseplan['day_no']==4):
-							echo'<span class="_week_day_title">Thursday</span>';
-							elseif($courseplan['day_no']==5):
-							echo'<span class="_week_day_title">Friday</span>';
-							elseif($courseplan['day_no']==6):
-							echo'<span class="_week_day_title">Saturday</span>';
-							else:
-							echo'<span class="_week_day_title">Sunday</span>';
-							endif;
-							?>		
-							<span class="_week_day_workout"><?=$courseplan['title']?></span>						</a>
-					</div>
-				</div>
-			<?php endforeach; ?>
+				<h3>My Program</h3>
 			</div>
 			
-		</div>
-	</section>
-	<section class="_week_ntritions">
-		<div class="container text-center">
-			<h3>Week 1 Nutritions</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-			</p>
-			<a href="javascript:;" class="btn_blue">Start</a>
+			<div class="row _product_before_after_row">
+				<div class="col-md-6 col-xs-12 col-sm-6 _product_before_col">
+					<?php 
+					if(count($ordercourses) > 0):
+					foreach($ordercourses as $ordercourse): ?>
+					<div class="col-md-6 col-xs-6 col-sm-6 _product_ba_img">
+						<a href="<?=base_url()?>start-workout/<?= $ordercourse['slug']?>" title="<?= $ordercourse['title']?> Workout">
+						<img src="<?= base_url()?>assets/front/uploads/courses/<?= $ordercourse['image']?>" alt="<?= $ordercourse['title']?>"  class="img-responsive" />
+						<h3><?= $ordercourse['title']?></h3>
+					</a>
+					</div>
+					<?php 
+				endforeach;
+					else:
+					echo '<h5 class="text-center">No Result Found</h5>';
+					endif;
+					 ?>
+				</div>
+			
+			</div>
+			
 		</div>
 	</section>

@@ -34,6 +34,7 @@
 			if(!$this->session->userdata('user_id') || !$this->session->userdata('user_name')){
 				redirect(base_url().'login');
 			}
+			
 		}
 		
 		function get_tbl($tbl){

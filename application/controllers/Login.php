@@ -16,17 +16,37 @@
 
 		
 		public function index(){
+	$exist=$this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$this->session->userdata('user_id'));
+
 
 			if($this->session->userdata('user_id') && $this->session->userdata('user_name')){
+
+				if(!empty($this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$this->session->userdata('user_id')))){
+					$uworkout=$this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$this->session->userdata('user_id'));
+					
+					redirect(base_url().'dashboard-workout/'.$uworkout->current_workout);
+				}
+					else{
 				redirect(base_url().'dashboard');
+				}
 			}
 			else if($this->input->cookie('u_user') && $this->input->cookie('u_pass')){
 				$data['user_name']=$this->input->cookie('u_user');     
 				$data['password']=$this->input->cookie('u_pass');
 				$result = $this->m_form->login($data);
 				echo $result;
+				if(!empty($uworkout=$this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$this->session->userdata('user_id')))){
+						if(!empty($uworkout->current_workout)):
+					redirect(base_url().'dashboard-workout/'.$uworkout->current_workout);
+						else:
+							redirect(base_url().'dashboard');
+						endif;
+				}
+					else{
 				redirect(base_url().'dashboard');
+				}
 			}
+			
 			else{
 			$viewdata['mens']=$this->Dmodel->get_tbl_whr_row('parents',1);
 			$viewdata['womens']=$this->Dmodel->get_tbl_whr_row('parents',2);

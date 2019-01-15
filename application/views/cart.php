@@ -1,7 +1,7 @@
 
 	<section class="_mobile_only_sec _btn_mobil_checkout">
 		<div class="_btn_rows_checkout">
-			<a href="javascript:;" class="_btn_checkout btn_cart_checkout">
+			<a href="javascript:;"  class="_btn_checkout btn_cart_checkout">
 				<img src="<?= base_url(); ?>assets/front/images/btn_checkout.png" class="img-responsive" />
 			</a>
 			<a href="javascript:;" class="_btn_checkout_paypal btn_cart_checkout">
@@ -9,8 +9,8 @@
 			</a>
 		</div>
 	</section>
+	
 	<?php 
-
 	if(count($cart) > 0):
 
 	 ?>
@@ -53,7 +53,7 @@
 
 			</div>	
 					<div class="row _btn_rows_checkout">
-				<a href="javascript:;" class="_btn_checkout btn_cart_checkout">
+				<a href="javascript:;" id="stripe-click" class="_btn_checkout btn_cart_checkout">
 					<img src="<?= base_url(); ?>assets/front/images/btn_checkout.png" class="img-responsive" />
 				</a>
 				<a href="javascript:;" id="paypal-click" data-course="<?= $items['name']?>" data-price="<?= $items['subtotal']?>" class="_btn_checkout_paypal btn_cart_checkout">
@@ -64,7 +64,7 @@
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" id="paypalform" method="post">
   <input type="hidden" name="cmd" value="_xclick">
   <input type="hidden" name="business" value="seller@designerfotos.com">
-  <input type="hidden" name="item_name" value="<?= $items['name']?>">
+  <input type="hidden" name="item_name" id="itemname"  value="<?= $items['name']?>">
   <input type="hidden" name="item_number" id="item_number" >
   <input type="hidden" name="amount" id="amount" value="<?= $items['subtotal']?>">
   <input type="hidden" name="quantity" value="1">
@@ -72,6 +72,8 @@
   <input type="hidden" name="return" value="<?=base_url()?>Cart/Paymentdone">
   
 </form>
+
+   
 			</div>
 			
 		</div>
@@ -140,8 +142,7 @@
 			</div>
 		</div>
 	</section>
-	<script type="text/javascript">
-
+	<script type="text/javascript">	
  $(document).on("click","#paypal-click",function() {
       var course=$(this).data("course");
       var price=$(this).data("price");

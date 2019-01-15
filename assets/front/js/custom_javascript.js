@@ -13,7 +13,8 @@ $("#userlog").submit(function(e){
 
 					}
 					else{	
-						window.location.href=baseurl+"dashboard";
+						window.location.href=baseurl+"Login/index";
+
 						
 					}
 				},
@@ -60,6 +61,10 @@ $("#userlog").submit(function(e){
 		});
 
 function Addtocart(id){
+	$.dialog({
+		    title: 'Successfully Added',
+		    content: 'Added to your cart',
+		});
 
 		$.ajax({
 		  url : baseurl+'Products/AddtoCart',
@@ -122,11 +127,11 @@ var code=$('#promo_code').val();
 		  type: "POST",
 		  data: {code: code} ,
 		  success: function (data) {
-			  if(data==0){
-				  $('#promomsg').html('<p style="color:red;">Code Already In Use.</p>');
-				  $('#promo_show').show();
-			  } 
-				else if(data==1){
+			  // if(data==0){
+				 //  $('#promomsg').html('<p style="color:red;">Code Already In Use.</p>');
+				 //  $('#promo_show').show();
+			  // } 
+				if(data==1){
 				  $('#promomsg').html('<p style="color:red;">Limit Exceeded ! Try Another Code.</p>');
 			  }
 			else if(data == 2){
@@ -184,6 +189,41 @@ function weekClick(id){
 		});
 	
 	
+}
+
+function StartWorkout(){
+	var n=10;
+	$('.c').text(n);
+	$('.btn_blue').hide();
+	setInterval(function(){
+		n--;
+		if(n>=0){
+			$('.c').text(n);
+		}
+        if(n==0){
+            $('.c').hide();
+        }
+	},1000);
+
+	 	$.ajax({
+		  url : baseurl+'StartWorkout/StartnowWorkout',
+		  type: "POST",
+		  data: {startworkout: 'start'} ,
+		  success: function (data) {
+			if(data =="done"){
+			  
+			}
+			
+			else{
+			  $('.c').html('No Result Found');
+			}
+		  },
+		  error: function (xhr, textStatus, errorThrown) 
+		  {
+			console.log(xhr.responseText);
+		  }
+		});
+
 }
 
 
