@@ -6,7 +6,7 @@
 				 ?>
 				<a href="<?=base_url()?>dashboard-workout/<?=$nextcourseplan->slug?>" class="btn_big_blue">Next</a>
 			<?php else: ?>
-				<a href="<?=base_url()?>dashboard" class="btn_big_blue">Next</a>
+				<a href="<?=base_url()?>start-workout/<?=$coursedetails->slug?>" class="btn_big_blue">Next</a>
 			<?php endif; ?>
 		</div>
 	</section>
@@ -66,7 +66,7 @@
 				 ?>
 				<a href="<?=base_url()?>dashboard-workout/<?=$nextcourseplan->slug?>" class="btn_big_blue">Next</a>
 			<?php else: ?>
-				<a href="<?=base_url()?>dashboard" class="btn_big_blue">Next</a>
+				<a href="<?=base_url()?>start-workout/<?=$coursedetails->slug?>" class="btn_big_blue">Next</a>
 			<?php endif; ?>
 			</div>
 		</div>

@@ -50,6 +50,7 @@
 			$data=$_POST;
 			$weekarr=array('week_id'=>$data['weekid']);
 			$courseplans=$this->Dmodel->get_tbl_whr_arr('course_plan',$weekarr);
+			
 			$html="";
 			foreach($courseplans as $courseplan){
 				$html .='	<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday ">

@@ -186,8 +186,10 @@
 
 
 <script>
+
 	var baseurl="<?= base_url()?>";
 	jQuery(document).ready(function($){
+		
 		$('.btn_menu').click(function(){
 			$('._mobile_nav').addClass('active_open');
 		});

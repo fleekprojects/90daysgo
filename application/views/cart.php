@@ -103,9 +103,19 @@
 						<div class="col-md-12 col-sm-12 col-xs-12 text-center category_title">
 							<h4 class="_has_dumble"><?=$mens->title?></h4>
 						</div>  
+
+						
 						<?php foreach($course_mens as $course_men): ?>
 						<div class="col-md-6 col-xs-6 col-sm-6 _choose_column">
-							<div class="_choose_column-inner">
+							<?php if(isset($uorder)):
+							 if (in_array($course_men['title'], $uorder)): ?>
+							<div class="_choose_column-inner" style="background:#3d7cc9;"   >
+							 <?php else: ?>
+							<div class="_choose_column-inner"   >
+							<?php endif;
+							 	  else: ?>
+								<div class="_choose_column-inner" >
+								<?php endif; ?>
 								<a href="<?=base_url()?>workout/<?= $mens->slug?>/<?= $course_men['slug']?>"> 
 								<img src="<?= base_url(); ?>assets/front/uploads/courses/<?= $course_men['image']?>" alt="" class="img-responsive" />
 								<h3><?= $course_men['title']?></h3>
@@ -126,7 +136,16 @@
 						</div>
 						<?php foreach($course_womens as $course_women): ?>
 						<div class="col-md-6 col-xs-6 col-sm-6 _choose_column">
-							<div class="_choose_column-inner">
+							<?php if(isset($uorder)):
+							 if (in_array($course_women['title'], $uorder)): ?>
+
+							<div class="_choose_column-inner" style="background:#3d7cc9;"   >
+							 <?php else: ?>
+							<div class="_choose_column-inner"   >
+							<?php endif;
+							 	  else: ?>
+								<div class="_choose_column-inner" >
+								<?php endif; ?>
 								<a href="<?=base_url()?>workout/<?= $womens->slug?>/<?= $course_women['slug']?>">
 								<img src="<?= base_url(); ?>assets/front/uploads/courses/<?= $course_women['image']?>" alt="" class="img-responsive" />
 							</a>

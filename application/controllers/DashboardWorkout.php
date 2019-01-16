@@ -12,15 +12,16 @@
 		
 		public function index($slug){
 			$this->Dmodel->checkUserLogin();
-			if(!empty($uworkout=$this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$this->session->userdata('user_id')))){
-
-					$this->Dmodel->update_data('users_start_workout',$this->session->userdata('user_id'),array('current_workout'=>$slug),'user_id');
-				}
+			$userid=$this->session->userdata('user_id');
 			$viewdata['courseplan']=$this->m_form->get_tbl_whr_key_row('course_plan','slug',$slug);
 			$viewdata['coursedetails']=$this->Dmodel->get_tbl_whr_row('courses',$viewdata['courseplan']->course_id);
 			$viewdata['plansets']=$this->Dmodel->get_tbl_whr_arr('plan_sets',array('plan_id'=>$viewdata['courseplan']->id));
 			$nextdayno=$viewdata['courseplan']->day_no;
 			$viewdata['nextcourseplan']=$this->m_form->get_nextcourseplan($nextdayno,$viewdata['courseplan']->week_id);
+				if(!empty($uworkout=$this->m_form->get_tbl_whr_key_arr('users_start_workout',array('user_id'=>$this->session->userdata('user_id'),'course_name'=>$viewdata['coursedetails']->slug)))){
+					
+					$this->Dmodel->update_data('users_start_workout',$uworkout->id,array('current_workout'=>$slug),'id');
+				}
 			
 			$this->LoadView('dashboard-workout',$viewdata);
 		}

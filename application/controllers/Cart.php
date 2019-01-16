@@ -16,18 +16,23 @@
 			$viewdata['mens']=$this->Dmodel->get_tbl_whr_row('parents',1);
 			$viewdata['womens']=$this->Dmodel->get_tbl_whr_row('parents',2);
 			if($userid=$this->session->userdata('user_id')):
-				$uorder=$this->m_form->get_tbl_whr_key_row('orders','user_id',$userid);
-				if(!empty($uorder)):
-				$viewdata['course_mens']=$this->m_form->get_home_course_men_id_not($uorder->course_name);
-				$viewdata['course_womens']=$this->m_form->get_home_course_women_id_not($uorder->course_name);
-				else:
+				$user_orders=$this->Dmodel->get_tbl_whr_arr('orders',array('user_id'=>$userid));
+
+				foreach($user_orders as $user_order):
+					$uord[]=$user_order['course_name'];
+				endforeach;
+				$viewdata['uorder']=$uord;
+				endif;
+				
 					$viewdata['course_mens']=$this->m_form->get_home_course_men();
 				$viewdata['course_womens']=$this->m_form->get_home_course_women();
-				endif;
-			else:
-				$viewdata['course_mens']=$this->m_form->get_home_course_men();
-				$viewdata['course_womens']=$this->m_form->get_home_course_women();
-			endif;
+				// foreach($viewdata['course_mens'] as $course_men):
+				// 		if($hell=array_search($course_men['title'],$viewdata['uorder'])):
+				// 			echo $hell;
+				// 		endif;
+				// endforeach;
+				// die;
+			
 
 			$this->LoadView('cart',$viewdata);
 		}

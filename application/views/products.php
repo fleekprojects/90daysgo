@@ -12,7 +12,16 @@
 	</section>
 	<section class="_btn_add_cart_bar">
 		<div class="container text-center">
+			
+			 <?php if(isset($uorder)):
+							if (!in_array($workout->title, $uorder)): ?>
 			<a href="javascript:;" onclick="Addtocart(<?= $workout->id ?>)"  class="btn_add_cart">Add to Cart</a>
+		<?php 
+			endif; 
+			else: ?>
+			<a href="javascript:;" onclick="Addtocart(<?= $workout->id ?>)"  class="btn_add_cart">Add to Cart</a>
+
+		<?php endif; ?>
 		</div>
 	</section>
 	
@@ -115,7 +124,13 @@
 					<hr class="_one_hr" />
 					<hr class="_two_hr"/>
 					<h3 class="_product_cta_price">$<?= $workout->price ?><h3>
+
+					<?php if(isset($uorder)):
+					
+					 if (!in_array($workout->title, $uorder)): 
+					 ?>
 					<a href="javascript:void(0)" onclick="AddtoCart(<?= $workout->id ?>)" class="btn_blue">Add to Cart</a>
+				<?php endif; endif; ?>
 				</div>
 			</div>
 		</div>

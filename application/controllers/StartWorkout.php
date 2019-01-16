@@ -13,9 +13,9 @@
 		public function index($slug){
 			$this->Dmodel->checkUserLogin();
 				$userid=$this->session->userdata('user_id');
-				$viewdata['startworkoutexist']=$this->m_form->get_tbl_whr_key_row('users_start_workout','user_id',$userid);	
+				$viewdata['startworkoutexist']=$this->m_form->get_tbl_whr_key_arr('users_start_workout',array('user_id'=>$userid,'course_name'=>$slug));	
 				$viewdata['coursedetails']=$this->m_form->get_tbl_whr_key_row('courses','slug',$slug);
-				
+
 				$courarr=array('course_id'=>$viewdata['coursedetails']->id);
 				$viewdata['weeks']=$this->Dmodel->get_tbl_whr_arr('course_weeks',$courarr);
 
@@ -76,6 +76,7 @@
 			$this->Dmodel->checkUserLogin();
 			$userid=$this->session->userdata('user_id');
 			$data['user_id']=$userid;
+			$data['course_name']=$_POST['startworkout'];
 			$data['start_workout_time']=datetime_now;
 			$data['created_at']=datetime_now;
 

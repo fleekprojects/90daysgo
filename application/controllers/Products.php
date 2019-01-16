@@ -15,9 +15,15 @@
 			$viewdata['workout']=$this->m_form->get_tbl_whr_key_row('courses','slug',$id);
 			$viewdata['workoutfeatures']=$this->Dmodel->get_tbl_whr_arr('course_features',array('course_id'=>$viewdata['workout']->id));
 			$workoutplans=$this->Dmodel->get_tbl_whr_arr('course_plan',array('course_id'=>$viewdata['workout']->id));
-
 			$viewdata['workoutprogram']=7 * count($workoutplans);
-			
+			if($userid=$this->session->userdata('user_id')):
+				$user_orders=$this->Dmodel->get_tbl_whr_arr('orders',array('user_id'=>$userid));
+
+				foreach($user_orders as $user_order):
+					$uord[]=$user_order['course_name'];
+				endforeach;
+				$viewdata['uorder']=$uord;
+				endif;
 
 			$viewdata['courses']=$this->m_form->get_courses_limit_whr_parentid(4,$viewdata['workout']->parent_id,$viewdata['workout']->id);
 			

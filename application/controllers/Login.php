@@ -57,6 +57,7 @@
 		}
 		
 		public function login_auth(){
+			
 			$data['user_name']=$_POST['user_name']; 
 			$data['password']=md5($_POST['password']);
 			$data['remember_me']=$_POST['remember_me']; 

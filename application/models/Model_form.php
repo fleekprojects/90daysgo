@@ -70,9 +70,11 @@ class Model_form extends CI_Model {
 			
 		    $this->input->set_cookie($cookie);
 		}
+		$this->db->where('status',1);
 		$this->db->where('user_name',$user_name);
 		$this->db->or_where('email',$user_name); 
 		$query = $this->db->get('users');
+
         if($query->num_rows() == 1){
             $rows = $query->row();
             if($rows->password == $password){
@@ -139,6 +141,9 @@ class Model_form extends CI_Model {
 	function get_tbl_whr_key_row($tbl,$key,$value){	
 		$this->db->where($key, $value);
 			$query = $this->db->get($tbl);
+			return $query->row();
+	}function get_tbl_whr_key_arr($tbl,$arr){	
+		$query=$this->db->get_where($tbl, $arr);
 			return $query->row();
 	}
 	function get_nextcourseplan($dayno,$weekid){	
