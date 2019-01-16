@@ -85,7 +85,9 @@
 	</section>
 	<script type="text/javascript">
 		 $(document).on("click",".sets",function() {
+		 $('.sets').removeClass('active');
 		$("#reps").html($(this).data("reps"));
+		$(this).addClass('active');
 		
 	});
 
