@@ -13,7 +13,7 @@ $("#userlog").submit(function(e){
 
 					}
 					else{	
-						window.location.href=baseurl+"Login/index";
+						window.location.href=baseurl+"login";
 
 						
 					}
@@ -75,6 +75,7 @@ function Addtocart(id){
 			  alert('Error ! Something Wrong in your Cart');
 			}
 			else{
+				setTimeout(function(){ location.reload(); }, 1000);
 			  $('#profilemsg').html('<b style="color: error;">Error Submitting your request. Please Try Again. </b>');
 			}
 		  },
@@ -169,6 +170,7 @@ var code=$('#promo_code').val();
 function weekClick(id){
 	$('.weeks').removeClass('active_week');
 	$('#week'+id).addClass('active_week');
+	$('#weekid').html('Week '+id+' Nutritions');
 		$.ajax({
 		  url : baseurl+'Dashboard/weekShow',
 		  type: "POST",
@@ -179,7 +181,7 @@ function weekClick(id){
 			}
 			
 			else{
-			  $('.planshow').html('<b style="color: error;">No Result Found </b>');
+			  $('.planshow').html('<h5 class="text-center">No Result Found</h5>');
 			}
 		  },
 		  error: function (xhr, textStatus, errorThrown) 
@@ -191,7 +193,7 @@ function weekClick(id){
 	
 }
 
-function StartWorkout(){
+function StartWorkout(slug){
 	var n=10;
 	$('.c').text(n);
 	$('.btn_blue').hide();
@@ -208,7 +210,7 @@ function StartWorkout(){
 	 	$.ajax({
 		  url : baseurl+'StartWorkout/StartnowWorkout',
 		  type: "POST",
-		  data: {startworkout: 'start'} ,
+		  data: {startworkout: slug} ,
 		  success: function (data) {
 			if(data =="done"){
 			  
