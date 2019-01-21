@@ -1,4 +1,5 @@
 
+
 	<section class="_single_workout_banner" style="background-image:url(<?= base_url()?>assets/front/uploads/courses/<?= $coursedetails->banner_image ?>);">
 		<div class="_single_workout_banner_inner">
 			<h1 class="has_big_dumble"><?=$courseplan->title?></h1>
@@ -90,6 +91,5 @@
 		$(this).addClass('active');
 		
 	});
-
 
 	</script>

@@ -267,3 +267,4 @@ $(window).on('popstate', function() {
 <script src="<?= base_url(); ?>assets/front/js/custom_javascript.js"></script>
 </body>
 </html>
+
