@@ -5,8 +5,10 @@
 		public function __construct(){
 			parent::__construct();
 			$this->load->model('Model_form','m_form');
+			$this->load->model('Model_admin','Amodel');
 			$this->load->library('user_agent');
 			$this->load->library('cart'); 
+			$this->load->helper('string'); 
 		}
 		
 
@@ -74,5 +76,41 @@
 			$this->session->sess_destroy();
 			redirect(base_url().'login');
 		}
+
+		public function fpass(){
+			$viewdata="";
+			$this->LoadView('forgot',$viewdata);
+		}
+		public function fpasssubmit(){
+			$email=$_POST['email']; 
+			$string = random_string('alnum', 16);
+			$result = $this->Amodel->fpass($email,$string);
+			echo $result;
+		}
+		public function changepassword($slug)
+		{
+			if($this->session->userdata('user_id')){
+				redirect(base_url());
+			}
+			if($this->Dmodel->IFExist('users','reset_token',$slug)){
+				redirect(base_url.'forgot');
+
+			}else{
+				$viewdata['slug']=$slug;
+				$this->LoadView('changepassword',$viewdata);
+
+
+			}
+		}
+		public function changepasssubmit()
+		{
+			$slug=$_POST['token'];
+			$data['password']=md5($_POST['password']);
+			$data['reset_token'] = random_string('alnum', 16);
+
+			$this->Dmodel->update_data('users',$slug,$data,'reset_token');
+			echo 1;
+					
+			}
 	}
 

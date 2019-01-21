@@ -17,12 +17,13 @@
 			$viewdata['womens']=$this->Dmodel->get_tbl_whr_row('parents',2);
 			if($userid=$this->session->userdata('user_id')):
 				$user_orders=$this->Dmodel->get_tbl_whr_arr('orders',array('user_id'=>$userid));
-
+				if(count($user_orders)>0):
 				foreach($user_orders as $user_order):
 					$uord[]=$user_order['course_name'];
 				endforeach;
 				$viewdata['uorder']=$uord;
 				endif;
+			endif;
 				
 					$viewdata['course_mens']=$this->m_form->get_home_course_men();
 				$viewdata['course_womens']=$this->m_form->get_home_course_women();
