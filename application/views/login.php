@@ -6,7 +6,7 @@
 		<div class="_sign_in_up_inner">
 		  <form id="userlog" method="POST">
 		  	<div id="msg"></div>
-			<h3>Signin</h3>
+			<h3>Sign in</h3>
 			<input type="text" name="user_name" class="txt_user_s" placeholder="| Email Address" />
 			<input type="password" name="password" id="password" class="txt_user_s" placeholder="| Password" />
 			<input type="checkbox" name="remember_me" id="reme"/>
@@ -15,7 +15,7 @@
 			</form>
 			<p>
 				<a href="<?=base_url()?>signup" class="_no_account pull-left"><i class="fa fa-circle-o"></i> Don't have account?</a>
-				<a href="#" class="_forget_password pull-right"> Forget Password</a>
+				<a href="<?=base_url()?>forgot" class="_forget_password pull-right"> Forget Password</a>
 			</p>
 		</div>
 	</section>

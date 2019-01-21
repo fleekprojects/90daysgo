@@ -47,6 +47,11 @@
 			<li>
 				<a href="<?= base_url()?>cart">Cart</a>
 			</li>
+			<li>
+				<a href="<?= base_url()?>login/">Login</a>
+			</li>
+			<li>
+				<a href="<?= base_url()?>signup/">Register</a>
 			<?php if(!empty($this->session->userdata('user_id'))): ?>
 						<li>
 							<a href="<?= base_url()?>logout">Logout</a>
@@ -85,6 +90,7 @@
 						<li>
 							<a href="<?= base_url()?>cart">Cart</a>
 						</li>
+						
 						<?php if(!empty($this->session->userdata('user_id'))): ?>
 						<li>
 							<a href="<?= base_url()?>logout">Logout</a>
@@ -189,7 +195,7 @@
 
 	var baseurl="<?= base_url()?>";
 	jQuery(document).ready(function($){
-		
+
 		$('.btn_menu').click(function(){
 			$('._mobile_nav').addClass('active_open');
 		});

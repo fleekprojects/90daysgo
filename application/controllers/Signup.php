@@ -37,7 +37,7 @@
 				'subject'=>'Account Registered.',
 				'message'=>'We have received a request to verify your account by clicking on this link: <a href="https://90daysgo/verify/'.$string.'">click here</a> '
 			);
-			// $this->Dmodel->send_mail($maildata);
+			$this->Dmodel->send_mail($maildata);
     			$exec=$this->Dmodel->insertdata('users',$data);
     			echo $exec;
 			}
@@ -45,17 +45,29 @@
 				echo 0;
 			}
 		}
-		public function verify($slug)
+		public function verify($slug,$check)
 		{
+			if($check=="signup"):
+				if($this->Dmodel->IFExist('users','reset_token',$slug)){
+					redirect(base_url());
+				}
+				else{
+					$data=array('status'=>1);
+					$this->Dmodel->update_data('users',$slug,$data,'reset_token');
+					redirect(base_url().'login');
+				}
+			else:
+					if($this->Dmodel->IFExist('users','reset_token',$slug)){
+					redirect(base_url().'forgot');
+				}
+				else{
+					$data=array('status'=>1);
+					$this->Dmodel->update_data('users',$slug,$data,'reset_token');
+					redirect(base_url().'login');
+				}
 
-			if($this->Dmodel->IFExist('users','reset_token',$slug)){
-				redirect(base_url());
-			}
-			else{
-				$data=array('status'=>1);
-				$this->Dmodel->update_data('users',$slug,$data,'reset_token');
-				redirect(base_url().'login');
-			}
+			endif;
+
 
 
 		}

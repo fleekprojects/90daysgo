@@ -24,6 +24,31 @@ $("#userlog").submit(function(e){
 			});
 
 		});
+$("#forgotform").submit(function(e){
+			e.preventDefault();
+			var value =$("#forgotform").serialize() ;
+			$.ajax({
+				url:baseurl+'Login/fpasssubmit',
+				type:'POST',
+				data:value,
+				success:function(result){
+					if(result==0){
+						$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b>Error ! Invalid Email Address.</b></div>');
+						$("#msg").show();
+
+					}
+					else{	
+						$("#msg").html('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b>Successfully ! Check your mail.</b></div>');
+						$("#msg").show();
+						
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+					alert(xhr.responseText);
+				}
+			});
+
+		});
 		$("#usersignup").submit(function(e){
 			e.preventDefault();
 			var pass=$('#password').val();
@@ -49,6 +74,41 @@ $("#userlog").submit(function(e){
 						$("#msg").html('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b>Successfully Registered ! Check your mail</b></div>');
 						$("#msg").show();
 						setTimeout(function(){location.href=baseurl+"login"} , 5000);  
+						
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+					alert(xhr.responseText);
+				}
+			});
+		 }
+
+		});
+		$("#changepasswordform").submit(function(e){
+			e.preventDefault();
+			var pass=$('#password').val();
+			var cpass=$('#cpassword').val();
+			if(pass != cpass){
+				$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b> Password Not Matched</b></div>');
+			}
+			else{
+			var value =$("#changepasswordform").serialize() ;
+			$.ajax({
+				url:baseurl+'Login/changepasssubmit',
+				type:'POST',
+				data:value,
+				success:function(result){
+					if(result==0){
+						$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b> Error ! Password Not Changed</b></div>');
+						$("#msg").show();
+						setTimeout(function(){$("#msg").hide(); }, 3000);
+
+					}
+					else{	
+						
+						$("#msg").html('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b>Succesfully Password Changed ! Login with new credentials</b></div>');
+						$("#msg").show();
+						setTimeout(function(){location.href=baseurl+"login"} , 3000);  
 						
 					}
 				},

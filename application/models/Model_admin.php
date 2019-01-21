@@ -51,16 +51,26 @@ class Model_admin extends CI_Model {
 	function fpass($email,$string){
 		$email_check=$this->db->get_where('users', array('email' => $email))->num_rows();
 		if($email_check==1){
+			$usersdetail=$this->Dmodel->get_tbl_whr_arr('users',array('email'=>$email));
+			$username=$usersdetail[0]['user_name'];
+			
 			$data=array('reset_token'=>$string);
 			$this->Dmodel->update_data('users',$email,$data,'email');
 			$maildata= array(
-				'from'=>Site_Title.','.Site_Email,
-				'to'=>$email,
+				'from_email'=>site_email,
+				'from_name'=>site_title,
+				'to_email'=>$email,
+				'to_name'=>$username,
 				'subject'=>'Reset your Account Password.',
 				'message'=>'We have received a request to reset your account password associated with this email address. If you have not placed this request, you can safely ignore this email and we assure you that your account is completely secure. 
-				If you do need to change your Password, you can use this link: '
+				If you do need to change your Password, you can use this link: 
+				<a href="'.base_url().'/change-password/'.$string.'">click here to change password</a>
+				'
 			);
 			$this->Dmodel->send_mail($maildata);
+		}
+		else{
+			echo 0;
 		}
 	}
 	
