@@ -10,13 +10,13 @@
 			$this->load->helper('string'); 
 		}
 		
-
-		
-		
 		public function index(){
-
+			if(empty($this->session->userdata('user_id'))):
 			$viewdata="";
 			$this->LoadView('signup',$viewdata);
+			else:
+			redirect(base_url());
+			endif;
 			
 		}
 
@@ -26,16 +26,19 @@
 			if($this->Dmodel->IFExist('users','email',$data['email'])){
 				$email=explode('@', $data['email']);
 				$data['user_name']=$email[0];
-				$string=random_string('alnum', 16);
-				$data['reset_token']=$string;
 				$data['password']=md5($data['password']);
+				$data['created_at']=datetime_now;
+				$string=random_string('alnum', 16);
+				// $string=md5(md5($data['password']));
+				$data['reset_token']=$string;
+				$content_msg='We have received a request to verify your account by clicking on this link: <a href="//'.$_SERVER['HTTP_HOST'].'/verify/'.$string.'/signup">click here</a>';
 				$maildata= array(
 				'from_email'=>site_email,
 				'from_name'=>site_title,
 				'to_email'=>$data['email'],
 				'to_name'=>$data['user_name'],
 				'subject'=>'Account Registered.',
-				'message'=>'We have received a request to verify your account by clicking on this link: <a href="https://90daysgo/verify/'.$string.'">click here</a> '
+				'message'=>$content_msg
 			);
 			$this->Dmodel->send_mail($maildata);
     			$exec=$this->Dmodel->insertdata('users',$data);

@@ -29,7 +29,9 @@
 		public function AddRecord(){
 			$this->Dmodel->checkLogin();
 			$data=$_POST;
-			if($this->Dmodel->IFExist($this->table,'title',$data['title'])){
+			$existrow=$this->Dmodel->chk_num($this->table,array('title'=>$data['title'],'parent_id'=>$data['parent_id']));
+			
+			if($existrow==0){
 				$data['created_at']= datetime_now;
 				$data['slug']=$this->slugify($data['title']);
 				$islug=$data['slug'];
@@ -103,7 +105,9 @@
 		public function EditRecord(){
 			$this->Dmodel->checkLogin();
 			$data=$_POST;
-			if($this->Dmodel->IFExistEdit($this->table,'title',$data['title'],$data['id'])){
+			$existrow=$this->Dmodel->chk_num($this->table,array('title'=>$data['title'],'id !='=>$data['id'],'parent_id'=>$data['parent_id']));
+			
+			if($existrow==0){
 				$data['updated_at']=datetime_now;
 				$data['slug']=$this->slugify($data['title']);
 				$islug=$data['slug'];

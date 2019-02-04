@@ -10,12 +10,12 @@
 		}
 		
 		public function index(){
-			$viewdata['blogs']=$this->Dmodel->get_tbl_whr_arr('blogs',array('post_type'=>'blog','status'=>1));
+			$viewdata['blogs']=$this->Dmodel->get_tbl_whr_arr('posts',array('post_type'=>'blog','status'=>1));
 			$this->LoadView('blogs',$viewdata);
 		}
 		
 		public function detail($slug){
-			$post=$this->Dmodel->get_tbl_whr_arr('blogs',array('slug'=>'blog/'.$slug,'post_type'=>'blog','status'=>1));
+			$post=$this->Dmodel->get_tbl_whr_arr('posts',array('slug'=>'blog/'.$slug,'post_type'=>'blog','status'=>1));
 			if(empty($post)){
 				redirect(base_url());
 			}
@@ -24,7 +24,7 @@
 		}
 		
 		public function page($slug){
-			$post=$this->Dmodel->get_tbl_whr_arr('blogs',array('slug'=>$slug,'post_type'=>'page'));
+			$post=$this->Dmodel->get_tbl_whr_arr('posts',array('slug'=>$slug,'post_type'=>'page'));
 			if(empty($post)){
 				redirect(base_url());
 			}

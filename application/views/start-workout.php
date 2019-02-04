@@ -1,15 +1,13 @@
-<section class="_dashboard_banner" style="background-image:url(<?= base_url()?>assets/front/uploads/courses/<?= $coursedetails->banner_image ?>);">
-	<?php if(empty($startworkoutexist)): ?>
+
+	<section class="_dashboard_banner" style="background-image:url(<?= base_url()?>assets/front/uploads/courses/<?= $coursedetails->banner_image ?>);">
 		<div class="_dashboard_banner_inner">
-			<a href="javascript:;" onclick="StartWorkout('<?=$coursedetails->slug?>')" class="btn_blue">
+			<h4 >
 				Start Your Workout
-			</a>
-			<span class="c" style="color:white;" ></span>
+			</h4>
 		</div>
-	<?php endif; ?>
 	</section>
-	
 	<section class="_user_area_weeks">
+	<img src="<?=base_url()?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="">
 		<div class="container">
 			<div class="row title_sec text-center">
 				<h3>Week</h3>
@@ -19,7 +17,14 @@
 					<ul>
 						<?php foreach($weeks as $week): ?>
 						<li class="<?= ($week['week_no']==1 ? 'active_week' : '')?> weeks" id="week<?=$week['id']?>">
-							<a href="javascript:;" onclick="weekClick(<?=$week['id']?>)"><?=$week['week_no']?></a>
+							<a href="javascript:;" onclick="weekClick(<?=$week['id']?>,<?=$week['week_no']?>)"><?php 
+								$num_length = strlen((string)$week['week_no']);
+								if($num_length ==1){
+									echo '0'.$week['week_no'];
+								}else{
+									echo $week['week_no'];	
+								}
+							 ?></a>
 						</li>
 					<?php  endforeach;
 						
@@ -29,11 +34,18 @@
 				</div>
 			</div>
 			<div class="_week_days row planshow">
-				<?php  
+				<?php
 				if(count($courseplans) > 0):
+					$i=0;
 					foreach($courseplans as $courseplan): ?>
-				<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday ">
-					<div class="_week_day_inner">						<a href="<?=base_url()?>dashboard-workout/<?=$courseplan['slug']?>">
+				<script type="text/javascript">
+					$( document ).ready(function() {
+					worout_finished('1','<?=$courseplan['day_no']?>','<?=$this->session->userdata('user_id')?>','<?=$courseplan['course_id']?>','<?=$courseplan['slug']?>','wk<?=$i?>');
+					});	
+				</script>		
+				<div id="wk<?php echo $i++; ?>" class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday ">
+					<div class="_week_day_inner">						
+						<a class="chk_week_day" weekid="1" dayno="<?=$courseplan['day_no']?>" userid="<?=$this->session->userdata('user_id')?>" coursid="<?=$courseplan['course_id']?>" slg="<?=$courseplan['slug']?>" href="javascript:void(0);">
 						<?php if($courseplan['day_no']==1):
 							echo '<span class="_week_day_title">Monday</span>';
 							elseif($courseplan['day_no']==2):
@@ -63,13 +75,20 @@
 		</div>
 	</section>
 	<section class="_week_ntritions">
+	<img src="<?=base_url()?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="">
 		<div class="container text-center">
 			<h3 id="weekid">Week 1 Nutritions</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+			<?php if(count($weeks)> 0):
+				?>
+			<p id="nutritioncontent">
+				<?= (!empty($weeks[0]['content']) ? $weeks[0]['content'] : 'No Result Found' )?>
 			</p>
-			<?php if(empty($startworkoutexist)): ?>
-			<a href="javascript:;" onclick="StartWorkout()"  class="btn_blue">Start</a>
-		<?php endif; ?>
+			<?php else: ?>
+			<p id="nutritioncontent">
+			No Result Found
+			</p>
+			<?php endif; ?>
+			<!--<a href="javascript:;" onclick="StartWorkout()"  class="btn_blue">Start</a>-->
+		
 		</div>
 	</section>

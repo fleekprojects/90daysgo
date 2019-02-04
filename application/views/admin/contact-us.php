@@ -46,7 +46,7 @@
 				  <td>
 				   <div class="form-group">
 					<label>
-					  <input type="checkbox" class="js-switch"  <?= ($rec['status']==1) ? 'checked' : '' ?> onclick="togglestatus(<?= $rec['id'] ?>,'Contact')" />
+					  <input type="checkbox" class="js-switch"  <?= ($rec['status']==1) ? 'checked' : '' ?> onclick="togglestatus(<?= $rec['id'] ?>,'Contactus')" />
 					</label>
 				   </div>
 				  </td>

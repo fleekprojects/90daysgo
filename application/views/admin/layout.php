@@ -67,11 +67,12 @@
 				  <li><a><i class="fa fa-edit"></i>CMS <span class="fa fa-chevron-down"></span></a>
 					  <ul class="nav child_menu">
 						<li><a href="<?= base_url(); ?>admin/posts">Blogs/Pages</a></li>
-						<li><a href="<?= base_url(); ?>admin/faqs">Faqs</a></li>
+						<!--<li><a href="<?= base_url(); ?>admin/faqs">Faqs</a></li>-->
 						<li><a href="<?= base_url(); ?>admin/contact-queries">Contact/Queries</a></li>
 					  </ul>
 				  </li>
 				  <li><a href="<?= base_url(); ?>admin/orders"><i class="fa fa-cubes"></i> <span>Orders</span></a></li>
+				  <li><a href="<?= base_url(); ?>admin/users"><i class="fa fa-user"></i> <span>Users</span></a></li>
 				  <li><a href="<?= base_url(); ?>admin/promocode"><i class="fa fa-tag"></i> <span>Promo code</span></a></li>
 				</ul>
 

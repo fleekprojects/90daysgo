@@ -63,14 +63,8 @@
 		
 		public function DeleteRecord(){
 			$whr_key="id";
-			$ids=$this->input->post('ids');
-			$result=$this->Dmodel->delete_multi_rec($ids,$whr_key,$this->table);
-			$this->session->set_flashdata('message','<div class="alert alert-warning alert-dismissable">
-			<i class="fa fa-check"></i>
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<b>Record Deleted.</b>
-			</div>'); 
-			redirect($this->agent->referrer()) ;
+			$ids=$this->input->post('ids');					$courseweeks=$this->Dmodel->get_tbl_whr_in('course_plan','week_id',$ids);			if(count($courseweeks)> 0):			$this->session->set_flashdata('message','<div class="alert alert-danger alert-dismissable">			<i class="fa fa-ban"></i>			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>			<b>Delete Course Plan of Parent Week</b>			</div>'); 			redirect($this->agent->referrer());			else:			$result=$this->Dmodel->delete_multi_rec($ids,$whr_key,$this->table);			$this->session->set_flashdata('message','<div class="alert alert-warning alert-dismissable">			<i class="fa fa-check"></i>			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>			<b>Record Deleted.</b>			</div>'); 			redirect($this->agent->referrer()) ;			endif;
+			
 		}
 		
 		public function toggleStatus(){
@@ -78,6 +72,13 @@
 			$id=$this->input->post('id');
 			$data=$this->Dmodel->toggle_status($this->table,$id);
 			echo $data; 
+		}
+			public function get_content()
+		{
+			$id=$this->input->post('id');
+			$data=$this->Dmodel->get_tbl_whr_row($this->table,$id);
+			$rec=array('id'=>$data->id,'content'=>$data->content);
+			echo json_encode($rec); 
 		}
 		
 

@@ -59,10 +59,10 @@
 		}
 		
 		public function login_auth(){
-			
+						
 			$data['user_name']=$_POST['user_name']; 
-			$data['password']=md5($_POST['password']);
-			$data['remember_me']=$_POST['remember_me']; 
+			$data['password']=md5($_POST['password']);						if(isset($_POST['remember_me'])):
+			$data['remember_me']=$_POST['remember_me']; 			else:			$data['remember_me']="off"; 			endif;			
 			$result = $this->m_form->login($data);
 			echo $result;
 		}

@@ -1,4 +1,4 @@
-<div class="">
+<style>  .note-popover .popover-content, .panel-heading.note-toolbar {    padding: 0 0 10px 5px !important;    margin: 0 !important;}.note-editor.note-frame .note-editing-area .note-editable {   padding-top: 20px !important;}.note-toolbar-wrapper{	height:100%;}</style><div class="">
    <div class="page-title">
       <div class="title_left">
          <h3>Manage <?= $parent[0]['title']." ".$title;?></h3>
@@ -102,9 +102,9 @@
                               <?= ($rec['updated_at'] == "" ? "" : date('jS M Y', strtotime($rec['updated_at']))); ?>
                            </td>
                            <td>
-                              <a class="btn btn-warning btn-edit" data-toggle="modal" data-target="#ModalEdit" <?= 'data-id="'.$rec['id'].'"    data-title= "'.$rec['title'].'"'; ?>><i class="fa fa-edit"></i></a>
-                              <a class="btn btn-danger" onclick="doDelete(<?= $rec['id']; ?>)"><i class="fa fa-trash"></i></a>
-                               <a class="btn btn-info btn-feat" href="<?=base_url()?>admin/courseplans/<?= $course_id ?>/<?= $rec['id']?>"><i class="fa fa-edit"></i></a>
+                              <a class="btn btn-warning btn-edit" title="Edit Course Week"   data-toggle="modal" data-target="#ModalEdit" <?= 'data-id="'.$rec['id'].'"    data-title= "'.$rec['title'].'"'; ?>><i class="fa fa-edit"></i></a>
+                              <a class="btn btn-danger"  title="Delete Course Week"onclick="doDelete(<?= $rec['id']; ?>)"><i class="fa fa-trash"></i></a>
+                               <a class="btn btn-info btn-feat" title="Course Plans" href="<?=base_url()?>admin/courseplans/<?= $course_id ?>/<?= $rec['id']?>"><i class="fa fa-play"></i></a>
                              
                            </td>
                         </tr>
@@ -135,7 +135,7 @@
 							<label class="control-label">Week Title</label>
 							<input type="text" name="title" id="title" class="form-control" >
 						</div>
-                     </div>
+                     </div>					  <div class="form-group">					 <div class="col-md-7">                        <label class="control-label" for="example-text-input">Nutrition Content</label>                        <textarea name="content" id="content" class="summernote"></textarea>                     </div>					  </div>
                   
                </div>
                <div class="modal-footer">
@@ -151,7 +151,7 @@
    </div>
 </div>
 <script type="text/javascript">        
-   $(document).ready(function(){
+   $(document).ready(function(){	$('.summernote').summernote({   		placeholder: 'Enter Nutrition Content here...',   		tabsize: 2,   		height: 200   	});
       $("#Addform").validate({
       rules: {
          title: {
@@ -177,8 +177,23 @@
 
 
    $(".btn-edit").click(function(){
-      $("#id").val($(this).data("id"));
+      var id=$(this).data("id");
 		$("#title").val($(this).data("title"));
+      $.ajax({
+      url:"<?= base_url();?>admin/CourseWeeks/get_content",
+      type:'POST',
+      dataType:'JSON',
+      data:{'id':id},
+      success:function(result){
+        $('#id').val(result.id),
+        $('#content').summernote("code", result.content);
+        $(".note-editor .note-editing-area").css("position", "initial");
+        $(".note-toolbar-wrapper").css("height", "100%");
+      },
+      error: function (xhr, textStatus, errorThrown){
+        alert(xhr.responseText);
+      }
+    });	
 		
 	});
 	

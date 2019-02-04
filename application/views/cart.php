@@ -34,7 +34,7 @@
 
 		<?php foreach($cart as $items): ?>
 
-		<div class="container">
+		<div class="container _bg_gray_full_cart_content">
 
 			<div class="row _my_cart">
 
@@ -106,22 +106,36 @@
 
 			</div>	
 
-					<div class="row _btn_rows_checkout">
 
+		</div>
+		
+		<div class="container _bg_white">
+			<div class="row _btn_rows_checkout">
+				<?php if(empty($this->session->userdata('user_id'))): ?>
+				<a href="<?=base_url()?>login" class="_btn_checkout btn_cart_checkout">
+
+				<img src="<?= base_url(); ?>assets/front/images/btn_checkout.png" class="img-responsive" />
+
+				</a>
+				<?php else: ?>		
 				<form action="<?php echo base_url(); ?>/strip/charge.php" method="POST" id="firstform">
 				<input type="hidden" name="pckg_amount" id="pckg_amount" value="<?= $items['subtotal']?>">
+				<input type="hidden" name="items_cat" id="items_cat"  value="<?= $items['cat_name']?>">
+				<input type="hidden" name="course_id" id="course_id" value="<?=$items['id']?>" >
 				<input type="hidden" name="items_name" id="items_name"  value="<?= $items['name']?>">
 				<input type="hidden" name="items_coupon" id="items_coupon"  value="<?= $items['coupon']?>">
+				<input type="hidden" name="user_id" id="user_id"  value="<?= $this->session->userdata('user_id')?>">
 				<input type="hidden" name="pckg_month" id="pckg_month" value="1">
 				<input type="hidden" name="pckg_decp" id="pckg_decp" value="90daysgo">	
-				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_eLg4IVsI9ESwYqIfjrmOEUvd"
+				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button _btn_checkout btn_cart_checkout" data-key="pk_test_eLg4IVsI9ESwYqIfjrmOEUvd"
 				data-name="90daysgo" data-description="90daysgo">
 				</script>
 				</form>
+				<?php endif; ?>
 
-				<a href="javascript:;" id="paypal-click" data-course="<?= $items['name']?>" data-price="<?= $items['subtotal']?>" class="_btn_checkout_paypal btn_cart_checkout">
+				<a href="javascript:;" id="paypal-click" data-course="<?= $items['name']?>" data-courseid="<?= $items['id']?>" data-price="<?= $items['subtotal']?>" data-cat="<?= $items['cat_name']?>" class="_btn_checkout_paypal btn_cart_checkout">
 
-					<img src="<?= base_url(); ?>assets/front/images/btn_checkout_paypal.png" class="img-responsive" />
+				<img src="<?= base_url(); ?>assets/front/images/btn_checkout_paypal.png" class="img-responsive" />
 
 				</a>
 
@@ -129,36 +143,28 @@
 
 
 
-<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" id="paypalform" method="post">
+				<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" id="paypalform" method="post">
 
-  <input type="hidden" name="cmd" value="_xclick">
+				<input type="hidden" name="cmd" value="_xclick">
 
-  <input type="hidden" name="business" value="seller@designerfotos.com">
+				<input type="hidden" name="business" value="seller@designerfotos.com">
 
-  <input type="hidden" name="item_name" id="itemname"  value="<?= $items['name']?>">
+				<input type="hidden" name="item_name" id="itemname"  value="<?= $items['name']?>">
 
-  <input type="hidden" name="item_number" id="item_number" >
+				<input type="hidden" name="item_number" id="item_number" >
 
-  <input type="hidden" name="amount" id="amount" value="<?= $items['subtotal']?>">
+				<input type="hidden" name="amount" id="amount" value="<?= $items['subtotal']?>">
 
-  <input type="hidden" name="quantity" value="1">
+				<input type="hidden" name="quantity" value="1">
 
-  <input type="hidden" name="currency_code" value="USD">
+				<input type="hidden" name="currency_code" value="USD">
 
-  <input type="hidden" name="return" value="<?=base_url()?>Cart/Paymentdone">
-
-  
-
-</form>
+				<input type="hidden" name="return" value="<?=base_url()?>Cart/Paymentdone">
 
 
 
-   
-
+				</form>
 			</div>
-
-			
-
 		</div>
 
 		<?php endforeach; ?>
@@ -168,9 +174,6 @@
 <?php else: ?>
 
 	<section class="_empty_cart_content">
-
-		<img src="<?= base_url(); ?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="" />
-
 		<div class="container text-center">
 
 			<h3>Your Cart is Empty</h3>
@@ -333,9 +336,13 @@
 
  $(document).on("click","#paypal-click",function() {
 
+      var courseid=$(this).data("courseid");
+	  
       var course=$(this).data("course");
 
       var price=$(this).data("price");
+
+      var course_cat=$(this).data("cat");
 
       var discount=$('#discount').val();
 
@@ -347,7 +354,7 @@
 
 		  type: "POST",
 
-		  data: {course: course,price: price,discount: discount} ,
+		  data: {courseid: courseid,course: course,price: price,discount: discount,course_cat:course_cat} ,
 
 		  success: function (data) {
 

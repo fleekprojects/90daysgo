@@ -94,7 +94,7 @@
                            </td>
                            <td><?= $rec['title']?></td>
 						         <td><?= $rec['day_no']?></td>
-                           <td><video width="320" height="240" controls autoplay muted>
+                           <td><video width="320" height="240" controls >
                              <source src="<?= base_url()?>assets/front/uploads/courses/courseplans/<?= $rec['video']?>" type="video/mp4">
                              Sorry, your browser doesn't support the video element.
                            </video>

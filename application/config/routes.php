@@ -53,15 +53,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Home';
 $route['track-your-order'] = 'Track';
 $route['signup'] = 'Signup';
-$route['verify/(:any)'] = 'Signup/verify/$1';
+$route['verify/(:any)/(:any)'] = 'Signup/verify/$1/$2';
 $route['change-password/(:any)'] = 'Login/changepassword/$1';
+$route['change-password'] = 'ChangePassword';
 $route['login'] = 'Login/login';
 $route['forgot'] = 'Login/fpass';
 $route['logout'] = 'Login/logout';
 $route['dashboard'] = 'Dashboard';
-$route['start-workout/(:any)'] = 'StartWorkout/index/$1';
+$route['start-workout/(:any)/(:any)'] = 'StartWorkout/index/$1/$2';
 $route['dashboard-workout/(:any)'] = 'DashboardWorkout/index/$1';
 $route['thankyou'] = 'Dashboard/thankyou';
+$route['thank-you'] = 'DashboardWorkout/endthankyou';
 $route['workout/(:any)/(:any)'] = 'Products/index/$1/$2';
 $route['cart'] = 'Cart';
 $route['track-your-order/search'] = 'Track/search';
@@ -72,6 +74,7 @@ $route['blog/(:any)'] = 'Blogs/detail/$1';
 $route['contact-us'] = 'Contact';
 
 /*----------------------------------- Admin Routes -----------------------------------*/
+$route['admin/users'] = 'admin/Users';
 $route['admin/posts'] = 'admin/Posts';
 $route['admin/posts/(:any)'] = 'admin/Posts/$1';
 $route['admin/posts/edit/(:any)'] = 'admin/Posts/Edit/$1';

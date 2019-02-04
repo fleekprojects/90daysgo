@@ -29,34 +29,26 @@
 		</a>
 		
 		<ul class="_mobile_menu">
-			<li>
+			
 				<?php if(!empty($this->session->userdata('user_id'))): ?>
-				<a href="<?= base_url()?>dashboard">Home</a>
-
-			<?php else: ?>
-				<a href="<?= base_url()?>">Home</a>
-			<?php endif; ?>
-			</li>
-			<li>
-				<a href="javascript:void(0);">Product</a>
-			</li>
-			<li>
-				<a href="javascript:;">Workout</a>
-			</li>
-
-			<li>
-				<a href="<?= base_url()?>cart">Cart</a>
-			</li>
-			<li>
-				<a href="<?= base_url()?>login/">Login</a>
-			</li>
-			<li>
-				<a href="<?= base_url()?>signup/">Register</a>
-			<?php if(!empty($this->session->userdata('user_id'))): ?>
-						<li>
-							<a href="<?= base_url()?>logout">Logout</a>
-						</li>
-						<?php endif; ?>
+				<li><a href="<?=base_url()?>dashboard">My Programs</a>
+				</li>
+				<li><a href="<?=base_url()?>change-password">Change Password</a>
+				</li>
+				<li>
+					<a href="<?= base_url()?>logout">Logout</a>
+				</li>
+				<?php else: ?>
+				<li>
+					<a href="<?= base_url()?>login">Login</a>
+				</li>
+				<li>
+					<a href="<?= base_url()?>signup">Register</a>
+				</li>
+					<?php endif; ?>
+				<li>
+					<a href="<?= base_url()?>contact-us">Contact us</a>
+				</li>
 		</ul>
 		
 		<p class="_mobile_policy">
@@ -74,26 +66,17 @@
 						<i class="fa fa-bars"></i>
 					</a>
 					<ul class="_main_menu">
-						<li>
-							<?php if(!empty($this->session->userdata('user_id'))): ?>
-							<a href="<?= base_url()?>dashboard">Home</a>
-						<?php else: ?>
-							<a href="<?= base_url()?>">Home</a>
-						<?php endif; ?>
-						</li>
-						<li>
-							<a href="javascript:void(0);">Product</a>
-						</li>
-						<li>
-							<a href="javascript:;">Workout</a>
-						</li>
-						<li>
-							<a href="<?= base_url()?>cart">Cart</a>
-						</li>
 						
 						<?php if(!empty($this->session->userdata('user_id'))): ?>
+						<li><a href="<?= base_url()?>">Home</a></li>	
+						<li><a href="<?=base_url()?>dashboard">My Programs</a></li>
+						<li><a href="<?=base_url()?>contact-us">Contact Us</a></li>
+						<?php else: ?>
 						<li>
-							<a href="<?= base_url()?>logout">Logout</a>
+							<a href="<?= base_url()?>login">Login</a>
+						</li>
+						<li>
+							<a href="<?= base_url()?>signup">Register</a>
 						</li>
 						<?php endif; ?>
 					</ul>
@@ -104,6 +87,24 @@
 					</a>
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-4 _header_cart">
+					<ul class="_main_menu pull-right" style="margin-left: 15px;">
+						
+						<?php if(!empty($this->session->userdata('user_id'))): ?>
+						<li class="_logged_in_dropdown"><a href="javascript:void(0);" class="_logged_in_dropdown_anchor"><i class="fa fa-user"></i> Welcome <?= $this->session->userdata('user_name')?> <i class="fa fa-caret-down"></i></a>
+						
+							<ul class="_profile_sub_menu">
+								<li><a href="<?=base_url()?>change-password">Change Password</a>
+									
+								</li>
+								<li>
+									<a href="<?= base_url()?>logout">Logout</a>
+								</li>
+							</ul>
+							
+						</li>
+						
+						<?php endif; ?>
+					</ul>
 					<a href="<?= base_url()?>cart" class="_header_basket">
 						<img src="<?= base_url(); ?>assets/front/images/cart_icon.png" alt="" class="img-responsive cart_icon" /><span class="_basket_count"><?= (($this->cart->contents()!="") ? count($this->cart->contents()) : 0) ?></span>
 					</a>
@@ -147,23 +148,26 @@
 					
 					<ul class="_footer_menu">
 						<li>
-							<a href="javascript:void(0)">
+							<a href="<?=base_url()?>">
 								Home
 							</a>
 						</li>
+						<li>.</li>
 						<li>
-							<a href="javascript:void(0)">
-								Products
+							<a href="<?=base_url()?>terms-conditions">
+								Terms & Conditions
 							</a>
 						</li>
+						<li>.</li>
 						<li>
-							<a href="javascript:void(0)">
-								Workouts
+							<a href="<?=base_url()?>privacy-policy">
+								Privacy Policy
 							</a>
 						</li>
+						<li>.</li>
 						<li>
-							<a href="javascript:void(0)">
-								Cart
+							<a href="<?= base_url()?>contact-us">
+								Contact us
 							</a>
 						</li>
 					</ul>
@@ -181,8 +185,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					 <p>
-						<a href="javascript:void(0);">Privacy Policy</a>
-						<a href="javascript:void(0);" class="pull-right">Terms & Conditions</a>
+						<a>&copy; 90 Days Go. All Right Reserved</a>
 					 </p>
 				 </div>
 			</div>
@@ -202,6 +205,10 @@
 		$('._btn_mobile_close').click(function(){
 			$('._mobile_nav').removeClass('active_open');
 		});
+		$('._logged_in_dropdown_anchor').click(function(){
+			$('._profile_sub_menu').fadeToggle();
+		});
+		
 		
 		// Add smooth scrolling to all links
 		$("a").on('click', function(event) {
@@ -259,11 +266,22 @@ $('#stripe-click').on('click', function(e) {
 $(window).on('popstate', function() {
   handler.close();
 });
-
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5c4eb5b751410568a108eeb2/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
 
 </script>
 
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 <script src="<?= base_url(); ?>assets/front/js/custom_javascript.js"></script>
 </body>
 </html>

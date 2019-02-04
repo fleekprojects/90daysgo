@@ -26,7 +26,9 @@ $token = $_POST['stripeToken'];
 $email = $_POST['stripeEmail'];
 $amount = $_POST['pckg_amount'] * 100;
 $items_name = $_POST['items_name'];
+$items_cat = $_POST['items_cat'];
 $items_coupon = $_POST['items_coupon'];
+$user_id = $_POST['user_id'];
 $pass = rand();
 
 try {
@@ -37,29 +39,37 @@ try {
     'card'     => $token
   ));
 
-  $user_check =  mysqli_num_rows(mysqli_query($connection,"SELECT * FROM `users` where `email` = '" . $email . "'"));
+  $user_check =  mysqli_num_rows(mysqli_query($connection,"SELECT * FROM `users` where `id` = '" . $user_id . "'"));
     if($user_check > 0){
-    $user_details =  mysqli_fetch_array(mysqli_query($connection,"SELECT * FROM `users` where `email` = '" . $email . "'"));
+    $user_details =  mysqli_fetch_array(mysqli_query($connection,"SELECT * FROM `users` where `id` = '" . $user_id . "'"));
     $order_details =  mysqli_fetch_array(mysqli_query($connection,"SELECT * FROM `orders` ORDER BY id DESC LIMIT 1"));
+	 $settings =  mysqli_fetch_array(mysqli_query($connection,"SELECT * FROM `settings` where id=1"));
     $userId = $user_details['id'];
     $orderId = '90DAYS00'.($order_details['id'] + 1);
     $order_insert = mysqli_query($connection,"INSERT INTO `orders` SET 
                                   `order_code` = '" . $orderId . "',
                                   `course_name` = '" . $items_name . "',
+                                  `parent_name` = '" . $items_cat . "',
                                   `user_id` = '" . $userId . "',
                                   `total_amount` = '" . $_POST['pckg_amount'] . "',
                                   `discount_code` = '" . $items_coupon . "',
                                   `paid_amount` = '" . $_POST['pckg_amount'] . "',
+								  `course_id` = '" . $_POST['course_id'] . "',
                                   `payment_gateway` = '2',
                                   `transaction_id` = '" . $token . "',
                                   `transaction_status` = '1',
                                   `status` = '1'");
-    $message =  "Hello ,<br><br>Thanks for the ordering.<br><br>Thanks & Regards<br><br>90DAYS";
+    $message =  "Hello ".$user_details['user_name'].",<br><br>Your Order Details : <br>
+		Order No : ".$orderId."<br>
+		Workout Name : ".$items_cat."(".$items_name.")<br>
+		Total Amount : $".$_POST['pckg_amount'].".00<br>
+		Payment Method : Stripe<br>
+	<br><br>Thanks & Regards<br><br>".$settings['site_title'];
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                $headers .= 'From: 90DAYS<info@90days.com>' . "\r\n";
-                $to = $email;
-                $subject = "Thanks Ordering";
+                $headers .= 'From: '.$settings['site_title'].'<'.$settings['site_email'].'>' . "\r\n";
+                $to = $user_details['email'];
+                $subject = "Thanks For Ordering";
                 $mail = mail($to,$subject,$message,$headers);
     header('Location: https://'.$_SERVER['HTTP_HOST'].'/thankyou');
     }else{
@@ -73,7 +83,9 @@ try {
     $orderId = '90DAYS00'.($order_details['id'] + 1);
     $order_insert = mysqli_query($connection,"INSERT INTO `orders` SET 
                                   `order_code` = '" . $orderId . "',
+								   `course_id` = '" . $_POST['course_id'] . "',
                                   `course_name` = '" . $items_name . "',
+                                  `parent_name` = '" . $items_cat . "',
                                   `user_id` = '" . $userId . "',
                                   `total_amount` = '" . $_POST['pckg_amount'] . "',
                                   `discount_code` = '" . $items_coupon . "',
@@ -90,12 +102,18 @@ try {
                 $subject1 = "User Signup";
                 $mail1 = mail($to1,$subject1,$message1,$headers1);
 
-    $message =  "Hello ,<br><br>Thanks for the ordering.<br><br>Thanks & Regards<br><br>90DAYS";
+	
+	$message =  "Hello ".$user_details['user_name'].",<br><br>Thanks for ordering.<br><br>Your Order Details : <br>
+		Order No : ".$orderId."<br>
+		Workout Name : ".$items_cat."(".$items_name.")<br>
+		Total Amount : ".$_POST['pckg_amount']."<br>
+		Payment Method : Stripe<br>
+	<br><br>Thanks & Regards<br><br>90DAYS";
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 $headers .= 'From: 90DAYS<info@90days.com>' . "\r\n";
-                $to = $email;
-                $subject = "Thanks Ordering";
+                $to = $user_details['email'];
+                $subject = "Thanks For Ordering";
                 $mail = mail($to,$subject,$message,$headers);            
     header('Location: https://'.$_SERVER['HTTP_HOST'].'/thankyou');
     }

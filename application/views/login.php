@@ -5,8 +5,8 @@
 		<img src="<?=base_url()?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="" />
 		<div class="_sign_in_up_inner">
 		  <form id="userlog" method="POST">
-		  	<div id="msg"></div>
-			<h3>Sign in</h3>
+		  
+			<h3>Sign in</h3>			<div id="msg"></div>
 			<input type="text" name="user_name" class="txt_user_s" placeholder="| Email Address" />
 			<input type="password" name="password" id="password" class="txt_user_s" placeholder="| Password" />
 			<input type="checkbox" name="remember_me" id="reme"/>

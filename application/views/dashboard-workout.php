@@ -2,13 +2,9 @@
 
 	<section class="_single_workout_banner" style="background-image:url(<?= base_url()?>assets/front/uploads/courses/<?= $coursedetails->banner_image ?>);">
 		<div class="_single_workout_banner_inner">
+		<h3>Day <?=$courseplan->day_no?>, Week <?=$courseweek->week_no?></h3>
 			<h1 class="has_big_dumble"><?=$courseplan->title?></h1>
-				<?php if(!empty($nextcourseplan)):
-				 ?>
-				<a href="<?=base_url()?>dashboard-workout/<?=$nextcourseplan->slug?>" class="btn_big_blue">Next</a>
-			<?php else: ?>
-				<a href="<?=base_url()?>start-workout/<?=$coursedetails->slug?>" class="btn_big_blue">Next</a>
-			<?php endif; ?>
+				
 		</div>
 	</section>
 	
@@ -30,6 +26,7 @@
 	</section>
 	
 	<section class="_single_workout_sets">
+	<img src="<?=base_url()?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="">
 		<div class="container">
 			<div class="row text-center">
 				<h3>Sets</h3>
@@ -39,7 +36,7 @@
 						foreach($plansets as $planset): 
 						 ?>
 							<li>
-								<a href="javascript:;" class="sets" data-id="<?= $planset['id']?>" data-reps="<?= $planset['reps']?>"><?= $planset['sets']?></a>
+								<a href="javascript:;" class="sets <?=($planset['sets']==1 ? 'active' : '')?>" data-id="<?= $planset['id']?>" data-reps="<?= $planset['reps']?>"><?= $planset['sets']?></a>
 							</li>
 						<?php endforeach;
 						else:
@@ -53,6 +50,7 @@
 	
 	
 	<section class="_single_workout_sets _single_workout_reps">
+	<img src="<?=base_url()?>assets/front/images/dots-4.png" class="img-responsive _dots_4" alt="">
 		<div class="container">
 			<div class="row text-center">
 				<?php if(count($plansets)>0): ?>
@@ -67,7 +65,7 @@
 				 ?>
 				<a href="<?=base_url()?>dashboard-workout/<?=$nextcourseplan->slug?>" class="btn_big_blue">Next</a>
 			<?php else: ?>
-				<a href="<?=base_url()?>start-workout/<?=$coursedetails->slug?>" class="btn_big_blue">Next</a>
+				<a href="<?=base_url()?>start-workout/<?=$parentsdetails->slug?>/<?=$coursedetails->slug?>" class="btn_big_blue">Next</a>
 			<?php endif; ?>
 			</div>
 		</div>
@@ -82,7 +80,12 @@
 				</div>
 			</div>
 		</div>
-		<a href="javascript:void(0)" class="btn_blue">End</a>
+		<?php 
+		//echo '<pre>'; print_r($uworkout);
+		if(isset($uworkout) && $uworkout->user_id == $this->session->userdata('user_id') && $uworkout->week == $courseweek->week_no && $uworkout->day == $courseplan->day_no && empty($uworkout->end_workout_time)):?>
+		<a href="javascript:void(0)" onclick="EndStartWorkout(<?= $uworkout->id ?>)" class="btn_blue">End</a>
+		<div id="workoutmsg"></div>
+		<?php endif; ?>
 	</section>
 	<script type="text/javascript">
 		 $(document).on("click",".sets",function() {

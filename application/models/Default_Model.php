@@ -94,6 +94,40 @@
 			}
 		}
 		
+		function check_data_workout($data){
+			$this->db->where('id', $data['coursid']);
+			$get_course = $this->db->get('courses');
+			$get_course_details = $get_course->row();
+			//echo $get_course_details->slug;
+			$where = "(user_id = '".$data['userid']."' AND course_name = '".$get_course_details->slug."' AND week = '".$data['weekid']."' AND day = '".$data['dayno']."')";
+			$this->db->where($where);
+			$check_work_out = $this->db->get('users_start_workout');
+			if(($check_work_out->num_rows()) > 0){
+				echo 'workoutexist';
+			}else{
+				$dataInsert = array('user_id' => $data['userid'],'week' => $data['weekid'],'day' => $data['dayno'],'course_name' => $get_course_details->slug,'current_workout' => $data['slg'],'status' => 1);
+				$query = $this->db->insert('users_start_workout',$dataInsert);
+				echo 'workoutnotexit';
+			}
+		}
+
+		function check_data_workout_finished($data){
+			$this->db->where('id', $data['coursid']);
+			$get_course = $this->db->get('courses');
+			$get_course_details = $get_course->row();
+			//echo $get_course_details->slug;
+			$where = "(user_id = '".$data['userid']."' AND course_name = '".$get_course_details->slug."' AND week = '".$data['weekid']."' AND day = '".$data['dayno']."')";
+			$this->db->where($where);
+			$check_work_out = $this->db->get('users_start_workout');
+			$check_finished = $check_work_out->row();
+			if($check_finished->end_workout_time == ''){
+				echo 'notfinished';
+			}else{
+				echo 'finished';
+			}
+		}
+
+
 		function get_data($qry){
 			$query = $this->db->query($qry);
 			if(($query->num_rows()) > 0){

@@ -22,9 +22,9 @@
 				  <th>Order Code</th>
 				  <th>Course</th>
 				  <th>Customer</th>
-				  <th>Amount</th>
+				  <th>Email Address</th>
 				  <th>Discount Code</th>
-				  <th>Paid Amount</th>
+				  <th>Amount</th>
 				  <th>Paid via</th>
 				  <th>Status</th>
 				  <th>Date Added</th>
@@ -37,15 +37,15 @@
 				<tr>
 				  <td><?= $rec['order_code']; ?></td>
 				  <td><?= $rec['course_name']; ?></td>
-				  <td><?= $rec['user_id']; ?></td>
-				  <td>$<?= $rec['total_amount']; ?></td>
-				  <td><?= $rec['discount_code']; ?></td>
+				  <td><?= $rec['user_name']; ?></td>
+				  <td><?= $rec['email']; ?></td>
+				  <td><?= (!empty($rec['discount_code']) ? $rec['discount_code'] : 'No Discount'); ?></td>
 				  <td>$<?= $rec['paid_amount']; ?></td>
 				  <td><?= ($rec['payment_gateway'] == 1 ? "Paypal" : "Stripe"); ?></td>
 				  <td>
 				   <div class="form-group">
 					<label>
-					  <input type="checkbox" class="js-switch"  <?= ($rec['status']==1) ? 'checked' : '' ?> onclick="togglestatus(<?= $rec['id'] ?>,'Contact')" />
+					  <input type="checkbox" class="js-switch"  <?= ($rec['status']==1) ? 'checked' : '' ?> onclick="togglestatus(<?= $rec['id'] ?>,'Orders')" />
 					</label>
 				   </div>
 				  </td>

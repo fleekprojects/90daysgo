@@ -59,7 +59,7 @@
 		public function get_record(){
 			$id=$this->input->post('id');
 			$data=$this->Dmodel->get_tbl_whr_row($this->table,$id);
-			$rec=array('id'=>$data->id,'tag'=>$data->tag,'question'=>$data->question,'answer'=>$data->answer);
+			$rec=array('id'=>$data->id,'question'=>$data->question,'answer'=>$data->answer);
 			echo json_encode($rec); 
 		}
 	}

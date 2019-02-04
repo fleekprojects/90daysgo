@@ -28,7 +28,7 @@
 	<section class="_product_choose_program">
 		<div class="container">
 			<div class="row title_sec text-center">
-				<h3>Choose a Program</h3>
+				<h3>Program Overview</h3>
 			</div>
 			
 			<div class="row _product_choose_program_content">
@@ -36,7 +36,7 @@
 				if(count($workoutfeatures) > 0):
 				foreach($workoutfeatures as $workoutfeature): ?>
 				<div class="col-md-4 col-sm-4 col-xs-6 _product_choose_program_col">
-					<img src="<?= base_url()?>assets/front/images/pro_icon1.png" class="img-responsive" alt="" />
+					<img src="<?= base_url()?>assets/front/images/icons/<?= $workoutfeature['image']; ?>" class="img-responsive" alt="" />
 					<h5><?= $workoutfeature['title'] ?></h5>
 				</div>
 				<?php  endforeach;
@@ -88,29 +88,30 @@
 	<section class="_product_before_after">
 		<div class="container">
 			<div class="row title_sec text-center">
-				<h3>Choose a Program</h3>
+				<h3>Before / After Images</h3>
 			</div>
 			
 			<div class="row _product_before_after_row">
+				<?php 
+					if(count($course_images) > 0):
+					foreach($course_images as $course_image): ?>
 				<div class="col-md-6 col-xs-12 col-sm-6 _product_before_col">
-					<?php 
-					if(count($courses) > 0):
-					foreach($courses as $course): ?>
+					
 					<div class="col-md-6 col-xs-6 col-sm-6 _product_ba_img">
-						<a href="<?=base_url()?>workout/<?= $workout->slug ?>/<?= $course['slug']?>" title="<?= $course['title']?> Workout">
-						<img src="<?= base_url()?>assets/front/uploads/courses/<?= $course['image']?>" alt="<?= $course['title']?>"  class="img-responsive" />
-					</a>
+						<img style="height: 350px; max-width: 262px;" src="<?= base_url()?>assets/front/uploads/courses/courseimages/<?= $course_image['before_image']?>" title="Before Workout" alt="Before Workout"  class="img-responsive" />
 					</div>
-					<?php 
+					<div class="col-md-6 col-xs-6 col-sm-6 _product_ba_img">
+						<img  style="height: 350px; max-width: 262px;" src="<?= base_url()?>assets/front/uploads/courses/courseimages/<?= $course_image['after_image']?>" alt="After Workout" title="After Workout"  class="img-responsive" />
+					</div>
+					
+				</div>
+				<?php 
 				endforeach;
 					else:
 					echo '<h5 class="text-center">No Result Found</h5>';
 					endif;
 					 ?>
-				</div>
-			
 			</div>
-			
 		</div>
 	</section>
 	
@@ -129,8 +130,10 @@
 					
 					 if (!in_array($workout->title, $uorder)): 
 					 ?>
-					<a href="javascript:void(0)" onclick="AddtoCart(<?= $workout->id ?>)" class="btn_blue">Add to Cart</a>
-				<?php endif; endif; ?>
+					<a href="javascript:void(0)" onclick="Addtocart(<?= $workout->id ?>)" class="btn_blue">Add to Cart</a>
+					<?php endif; else: ?>
+						<a href="javascript:void(0)" onclick="Addtocart(<?= $workout->id ?>)" class="btn_blue">Add to Cart</a>
+				<?php  endif; ?>
 				</div>
 			</div>
 		</div>

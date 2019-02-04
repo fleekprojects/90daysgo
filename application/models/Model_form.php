@@ -48,9 +48,11 @@ class Model_form extends CI_Model {
 	}
 
 		function login($data){
+			
         $user_name = $data['user_name'];     
 		$password = $data['password']; 
 		$remember=$data['remember_me'];
+		
 
 		
 		if($remember == "on"){
@@ -70,7 +72,6 @@ class Model_form extends CI_Model {
 			
 		    $this->input->set_cookie($cookie);
 		}
-		$this->db->where('status',1);
 		$this->db->where('user_name',$user_name);
 		$this->db->or_where('email',$user_name); 
 		$query = $this->db->get('users');
@@ -78,12 +79,17 @@ class Model_form extends CI_Model {
         if($query->num_rows() == 1){
             $rows = $query->row();
             if($rows->password == $password){
+				if($rows->status != 1){
+				return 2;
+				}else{
                 $this->session->set_userdata('_user',true);
-                $this->session->set_userdata('user_name',$user_name);
+                $this->session->set_userdata('user_name',$rows->user_name);
                 $this->session->set_userdata('user_id',$rows->id);
                 $this->session->set_userdata('user_email',$rows->email);
 				return $rows->id;
+				}
             }
+			
             else{
                 return 0;
             }
@@ -177,7 +183,49 @@ class Model_form extends CI_Model {
 			 $this->db->insert($tbl,$data);
 			 $query=$this->db->insert_id();
 			 return $query;
+	}
+	
+	function get_tbl_whr_arr_limit($tbl,$arr,$lim){
+					$this->db->limit($lim);	
+			$query = $this->db->get_where($tbl, $arr);
+			return $query->result_array();
+	}
+	function get_order_courses($userid){	
+		
+			$this->db->select('c.*,p.slug as pslug');
+			$this->db->from('orders as o');
+			$this->db->join('courses as c', 'c.id = o.course_id');
+			$this->db->join('parents as p', 'p.id = c.parent_id');
+			$this->db->where('o.user_id',$userid);
+			$this->db->where('o.transaction_status',1);
+			
+			$query = $this->db->get();
+ 
+			return $query->result_array();
+	}
+	function get_feature_icon_whr_in($cid){	
+		
+			$this->db->select('f.*,c.title AS icon,c.image');
+			$this->db->from('course_features as f');
+			$this->db->join('icons as c', 'c.title = f.icon','left');
+			$this->db->where('f.course_id', $cid);
+			$query = $this->db->get(); 
+			return $query->result_array();
+	}	
+	function get_order_by_users(){	
+		
+			$this->db->select('o.*,u.user_name,u.email');
+			$this->db->from('orders as o');
+			$this->db->join('users as u', 'o.user_id = u.id','left');
+			$query = $this->db->get(); 
+			return $query->result_array();
+	}
+	function get_tbl_whr_arr_orderby($tbl,$arr,$orderby){
+				$this->db->order_by($orderby,'asc');	
+			$query = $this->db->get_where($tbl, $arr);
+			return $query->result_array();
 		}
+	
 		
 	
    

@@ -10,16 +10,40 @@
 			$this->load->library('session'); 
 		}
 		
-		public function index($slug){
+		public function index($parent,$course){
+			
 			$this->Dmodel->checkUserLogin();
-				$userid=$this->session->userdata('user_id');
-				$viewdata['startworkoutexist']=$this->m_form->get_tbl_whr_key_arr('users_start_workout',array('user_id'=>$userid,'course_name'=>$slug));	
-				$viewdata['coursedetails']=$this->m_form->get_tbl_whr_key_row('courses','slug',$slug);
+
+			$userid=$this->session->userdata('user_id');
+
+			$parentdetails=$this->m_form->get_tbl_whr_key_row('parents','slug',$parent);
+
+			$viewdata['coursedetails']=$this->m_form->get_tbl_whr_key_arr('courses',array('slug'=>$course,'parent_id'=>$parentdetails->id));
+			
+			$courseinfo=$this->m_form->get_tbl_whr_key_arr('courses',array('slug'=>$course));
+			
+			
+			$userorderrow=$this->Dmodel->chk_num('orders',array('user_id'=>$userid,'course_name'=>$courseinfo->title,'parent_name'=>$parentdetails->title));
+			
+			
+
+			if($userorderrow==0):
+				redirect(base_url().'dashboard');
+			endif;
+				
+				$viewdata['startworkoutexist']=$this->m_form->get_tbl_whr_key_arr('users_start_workout',array('user_id'=>$userid,'course_name'=>$course));	
+
+				
 
 				$courarr=array('course_id'=>$viewdata['coursedetails']->id);
 				$viewdata['weeks']=$this->Dmodel->get_tbl_whr_arr('course_weeks',$courarr);
+				if(count($viewdata['weeks']) > 0):
+					$weekid=$viewdata['weeks'][0]['id'];
+				else:
+					$weekid="";
+				endif;
 
-				$viewdata['courseplans']=$this->Dmodel->get_tbl_whr_arr('course_plan',array('week_id'=>$viewdata['weeks'][0]['id']));
+				$viewdata['courseplans']=$this->Dmodel->get_tbl_whr_arr('course_plan',array('week_id'=>$weekid));
 		
 			
 			$this->LoadView('start-workout',$viewdata);

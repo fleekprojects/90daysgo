@@ -6,9 +6,15 @@
 			<h4>tomorrow</h4>
 			<hr class="_one_hr" />
 			<hr class="_two_hr"/>
+			<?php if(empty($this->session->userdata('user_id'))): ?>
 			<a href="<?=base_url()?>login" class="btn_theme">
 				Signin
 			</a>
+			<?php else: ?>
+			<a href="<?=base_url()?>dashboard" class="btn_theme">
+				My Programs
+			</a>	
+			<?php endif; ?>
 		</div>
 		
 		<a href="#down" class="_scroll_it_down">
@@ -74,7 +80,7 @@
 				<div class="col-md-12">
 					<h2>Can’t find what</h2>
 					<h3>you are looking for?</h3>
-					<a href="javascript:void(0)" class="btn_blue">Chat to us</a>
+					<a href="https://tawk.to/chat/5c4eb5b751410568a108eeb2/default" target="_blank" class="btn_blue">Chat to us</a>
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,11 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	class Orders extends My_Controller {
-		
+		public function __construct(){
+			parent::__construct();
+			
+			$this->load->model('Model_form','m_form');
+		}
 		var $table='orders';
 		var $pagetitle='Orders';
 		var $viewname='admin/orders';
@@ -10,7 +14,7 @@
 		public function index(){
 			$this->Dmodel->checkLogin();
 			$viewdata['title']=$this->pagetitle;
-			$viewdata['records']=$this->Dmodel->get_tbl($this->table);
+			$viewdata['records']=$this->m_form->get_order_by_users();
 			$this->LoadAdminView($this->viewname,$viewdata);
 		}
 		

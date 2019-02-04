@@ -9,8 +9,14 @@ $("#userlog").submit(function(e){
 					if(result==0){
 						$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b>Invalid UserName/Password.</b></div>');
 						$("#msg").show();
-						setTimeout(function(){$("#msg").hide(); }, 3000);
+						setTimeout(function(){$("#msg").hide(); }, 5000);
 
+					}
+					else if(result==2){
+						$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b> User is not active.</b></div>');
+						$("#msg").show();
+						setTimeout(function(){$("#msg").hide(); }, 5000);
+						
 					}
 					else{	
 						window.location.href=baseurl+"login";
@@ -49,8 +55,9 @@ $("#forgotform").submit(function(e){
 			});
 
 		});
-		$("#usersignup").submit(function(e){
-			e.preventDefault();
+		
+			$( "#usersignup" ).on( "submit", function(e){
+		e.preventDefault();
 			var pass=$('#password').val();
 			var cpass=$('#cpassword').val();
 			if(pass != cpass){
@@ -119,13 +126,44 @@ $("#forgotform").submit(function(e){
 		 }
 
 		});
+	$("#newchangepasswordform").submit(function(e){
+			e.preventDefault();
+			var pass=$('#password').val();
+			var cpass=$('#cpassword').val();
+			if(pass != cpass){
+				$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b> Password Not Matched</b></div>');
+			}
+			else{
+			var value =$("#newchangepasswordform").serialize() ;
+			$.ajax({
+				url:baseurl+'ChangePassword/changepasssubmit',
+				type:'POST',
+				data:value,
+				success:function(result){
+					if(result==0){
+						$("#msg").html('<div class="alert alert-danger alert-dismissable"><i class="fa fa-ban"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b> Old Password Incorrect</b></div>');
+						$("#msg").show();
+						setTimeout(function(){$("#msg").hide(); }, 3000);
 
-function Addtocart(id){
-	$.dialog({
-		    title: 'Successfully Added',
-		    content: 'Added to your cart',
+					}
+					else{	
+						
+						$("#msg").html('<div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><b> Succesfully Password Changed ! Login with new credentials</b></div>');
+						$("#msg").show();
+						setTimeout(function(){location.href=baseurl+"logout"} , 3000);  
+						
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+					alert(xhr.responseText);
+				}
+			});
+		 }
+
 		});
 
+function Addtocart(id){
+	
 		$.ajax({
 		  url : baseurl+'Products/AddtoCart',
 		  type: "POST",
@@ -135,8 +173,11 @@ function Addtocart(id){
 			  alert('Error ! Something Wrong in your Cart');
 			}
 			else{
-				setTimeout(function(){ location.reload(); }, 1000);
-			  $('#profilemsg').html('<b style="color: error;">Error Submitting your request. Please Try Again. </b>');
+				$.dialog({
+		    title: 'Successfully Added',
+		    content: 'Added to your cart',
+		});
+				location.reload();
 			}
 		  },
 		  error: function (xhr, textStatus, errorThrown) 
@@ -188,10 +229,7 @@ var code=$('#promo_code').val();
 		  type: "POST",
 		  data: {code: code} ,
 		  success: function (data) {
-			  // if(data==0){
-				 //  $('#promomsg').html('<p style="color:red;">Code Already In Use.</p>');
-				 //  $('#promo_show').show();
-			  // } 
+			   
 				if(data==1){
 				  $('#promomsg').html('<p style="color:red;">Limit Exceeded ! Try Another Code.</p>');
 			  }
@@ -214,6 +252,7 @@ var code=$('#promo_code').val();
 			  $('#promo-rate').html(promo.price+'%');
 			  $('#subtotalshow').html('$'+subtotal+'.00');
 			  $('#amount').val(subtotal);
+			  $('#pckg_amount').val(subtotal);
 			  
 			}
 		  },
@@ -227,17 +266,17 @@ var code=$('#promo_code').val();
 	
 }
 
-function weekClick(id){
+function weekClick(id,no){
 	$('.weeks').removeClass('active_week');
 	$('#week'+id).addClass('active_week');
-	$('#weekid').html('Week '+id+' Nutritions');
+	$('#weekid').html('Week '+no+' Nutritions');
 		$.ajax({
 		  url : baseurl+'Dashboard/weekShow',
 		  type: "POST",
 		  data: {weekid: id} ,
 		  success: function (data) {
 			if(data !=""){
-			  $('.planshow').html(data);
+			  $('.planshow').html(data);			  
 			}
 			
 			else{
@@ -248,36 +287,14 @@ function weekClick(id){
 		  {
 			console.log(xhr.responseText);
 		  }
-		});
-	
-	
-}
-
-function StartWorkout(slug){
-	var n=10;
-	$('.c').text(n);
-	$('.btn_blue').hide();
-	setInterval(function(){
-		n--;
-		if(n>=0){
-			$('.c').text(n);
-		}
-        if(n==0){
-            $('.c').hide();
-        }
-	},1000);
-
-	 	$.ajax({
-		  url : baseurl+'StartWorkout/StartnowWorkout',
+		});		$.ajax({
+		  url : baseurl+'Dashboard/weekdetails',
 		  type: "POST",
-		  data: {startworkout: slug} ,
+		  data: {weekid: id} ,
 		  success: function (data) {
-			if(data =="done"){
-			  
-			}
-			
-			else{
-			  $('.c').html('No Result Found');
+			if(data !=""){
+			  $('#nutritioncontent').html(data);			  
+			}			else{			  $('#nutritioncontent').html('<h5 class="text-center">No Result Found</h5>');
 			}
 		  },
 		  error: function (xhr, textStatus, errorThrown) 
@@ -285,7 +302,78 @@ function StartWorkout(slug){
 			console.log(xhr.responseText);
 		  }
 		});
-
+	
+	
 }
 
+
+function EndStartWorkout(id){
+	if(confirm("Are you sure you want to end this workout ? ")){
+		$.ajax({
+		  url : baseurl+'DashboardWorkout/EndWorkout',
+		  type: "POST",
+		  data: {id: id} ,
+		  success: function (data) {
+			if(data == 1){
+			setTimeout(function(){ location.href=baseurl+'thank-you'; }, 1000);
+			  $('#workoutmsg').html('<b style="color: green;">Successfully Submitted</b>');
+			}
+			else{
+				setTimeout(function(){ location.reload(); }, 1000);
+			  $('#workoutmsg').html('<b style="color: error;">Error Submitting your request. Please Try Again. </b>');
+			}
+		  },
+		  error: function (xhr, textStatus, errorThrown) 
+		  {
+			console.log(xhr.responseText);
+		  }
+		});
+	}else{
+		
+		return false;
+	}
+}
+$(document).on("click", ".chk_week_day", function () {
+	var weekid = $(this).attr("weekid");
+	var dayno = $(this).attr("dayno");
+	var userid = $(this).attr("userid");
+	var coursid = $(this).attr("coursid");
+	var slg = $(this).attr("slg");
+	$.ajax({
+        url: baseurl+'Dashboard/check_workout',
+        data: {weekid: weekid, dayno: dayno, userid: userid, coursid: coursid, slg: slg},
+        type: 'POST',
+        beforeSend: function () {
+        },
+        success: function (result) {
+        	window.location.href = baseurl+'dashboard-workout/'+slg;
+        },
+        error: function () {
+        }
+    });
+});
+
+function worout_finished(weekid,dayno,userid,courseid,slg,divid){
+	var weekid = weekid;
+	var dayno = dayno;
+	var userid = userid;
+	var coursid = courseid;
+	var slg = slg;
+	var divid = divid;
+	$.ajax({
+        url: baseurl+'Dashboard/check_workout_finished',
+        data: {weekid: weekid, dayno: dayno, userid: userid, coursid: coursid, slg: slg},
+        type: 'POST',
+        beforeSend: function () {
+        },
+        success: function (result) {
+        	if(result == 'finished'){
+        		$("#"+divid).addClass( "finish" );
+        	}else{}
+        	//window.location.href = baseurl+'dashboard-workout/'+slg;
+        },
+        error: function () {
+        }
+    });
+}
 

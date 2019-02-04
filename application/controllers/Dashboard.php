@@ -17,17 +17,13 @@
 			$chk_num=$this->Dmodel->chk_num('orders',$whr_arr);
 
 			if($chk_num >0):
-				$orderarr=array('user_id'=>$userid);
-				$userorders=$this->Dmodel->get_tbl_whr_arr('orders',$orderarr);
-				foreach ($userorders as $userorder) {
-					$userorderids[]=$userorder['course_name'];
-
-				}
-				$viewdata['ordercourses']=$this->Dmodel->get_tbl_whr_in('courses','Title',$userorderids);
+				
+				$viewdata['ordercourses']=$this->m_form->get_order_courses($userid);
+				
 				
 
 			else:
-				redirect(base_url().'cart');
+				redirect(base_url());
 			endif;	
 			
 			$this->LoadView('dashboard',$viewdata);
@@ -52,9 +48,18 @@
 			$courseplans=$this->Dmodel->get_tbl_whr_arr('course_plan',$weekarr);
 			
 			$html="";
+			$i=0;
 			foreach($courseplans as $courseplan){
-				$html .='	<div class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday ">
-					<div class="_week_day_inner">						<a href="'.base_url().'dashboard-workout/'.$courseplan['slug'].'">';
+				?>
+				<script type="text/javascript">
+					$( document ).ready(function() {
+					worout_finished('1','<?=$courseplan['day_no']?>','<?=$this->session->userdata('user_id')?>','<?=$courseplan['course_id']?>','<?=$courseplan['slug']?>','wk<?=$i?>');
+					});	
+				</script>
+				<?php
+				$html .='	<div id="wk'.$i++.'" class="_week_day col-md-6 col-sm-6 col-xs-12 _week_monday ">
+					<div class="_week_day_inner">						
+					<a class="chk_week_day" weekid="'.$data['weekid'].'" dayno="'.$courseplan['day_no'].'" userid="'.$this->session->userdata('user_id').'" coursid="'.$courseplan['course_id'].'" slg="'.$courseplan['slug'].'" href="javascript:void(0);">';
 							if($courseplan['day_no']==1):
 							$html .='<span class="_week_day_title">Monday</span>';
 							elseif($courseplan['day_no']==2):
@@ -79,7 +84,23 @@
 
 
 
+		}		
+		public function check_workout()
+		{
+			$data=$_POST;
+			$courseplans=$this->Dmodel->check_data_workout($data);
 		}
+		public function check_workout_finished()
+		{
+			$data=$_POST;
+			$courseplans=$this->Dmodel->check_data_workout_finished($data);
+		}
+		public function weekdetails()
+		{
+			$data=$_POST;
+			$weeks=$this->m_form->get_tbl_whr_key_row('course_weeks','id',$data['weekid']);						echo $weeks->content;
+			
+		}		
 		
 		
 	}

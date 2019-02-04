@@ -3,7 +3,7 @@
 
 	class Contactus extends My_Controller {
 		
-		var $table='contactus';
+		var $table='contact';
 		var $pagetitle='Contact/Queries';
 		var $viewname='admin/contact-us';
 		

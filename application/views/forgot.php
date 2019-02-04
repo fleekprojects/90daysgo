@@ -8,10 +8,10 @@
 		  	<div id="msg"></div>
 			<h3>Forgot Password</h3>
 			<input type="email" name="email" class="txt_user_s" placeholder="| Email Address" />
-			<input type="submit" value="SignIn" class="btn_user_s btn_blue_login" />
+			<input type="submit" value="Submit" class="btn_user_s btn_blue_login" />
 			</form>
 			<p>
-				<a href="<?=base_url()?>login" class="_no_account pull-left"><i class="fa fa-circle-o"></i> Sign in</a>
+				<a href="<?=base_url()?>login" class="_no_account pull-left"><i class="fa fa-circle-o"></i> Sign In</a>
 				
 			</p>
 		</div>

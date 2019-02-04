@@ -348,6 +348,7 @@ h2 {
   border-radius: 80px;
   transition:0.8s all;
 }
+
 .social_menu li a:hover i
 {
 	background:#3d7cc9;
@@ -897,8 +898,10 @@ section._mobile_nav {
     bottom: -30px;
 }
 ._single_workout_banner_inner .has_big_dumble {
-    width: 100%;
     margin-bottom: 30px;
+}
+._single_workout_banner_inner h3 {
+    color: #fff;
 }
 ._single_workout_banner_inner .btn_blue {
     padding: 15px 70px;
@@ -949,6 +952,23 @@ section._mobile_nav {
 }
 ._single_sets_ul li a.sets.active {
     background: #86817b;
+}
+._single_sets_ul li a:hover {
+    background: #b9b7b7;
+}
+._single_workout_reps ul li a {
+    width: 70px;
+    height: 70px;
+    background: transparent;
+    color: #f08b08;
+    border: 1px solid #f08b08;
+    font-size: 20px;
+    padding-top: 16px;
+}
+._single_workout_reps ul li a {
+    background: #b9b7b7;
+    color: #fff;
+    border-color: #fff;
 }
 .wrapper {
     overflow-x: hidden;
@@ -1045,7 +1065,92 @@ section._mobile_nav {
     text-decoration: underline;
     font-size: 15px;
 }
+
+._contact_pg_title {
+    padding: 70px 0;
+    margin-top: 70px;
+}
+._contact_pg_sec_1 p {
+    margin: 10px 0;
+    line-height: 24px;
+}
+#ConSub {
+    border: 0;
+}
+._contact_pg_title p {
+    margin: 10px 0;
+}
+._contact_pg_sec_1 {
+    padding: 70px 0;
+    background: #e4e4e4;
+}
+._single_workout_banner_inner h3 {
+    color: #fff;
+}
+._main_menu li a:hover {
+    color: #f08b08;
+}
+._footer_menu li a:hover {
+    color: #f08b08;
+}
+._logged_in_dropdown > a {
+    text-transform: capitalize !important;
+}
+._logged_in_dropdown {
+    position: relative;
+}
+._logged_in_dropdown i {
+    padding-right: 10px;
+}
+._logged_in_dropdown ul {
+    position: absolute;
+    width: 210px;
+    background: #454545;
+    padding: 8px 20px;
+    box-shadow: 0px 0px 4px 1px #5a5a5a;
+    top: 40px;
+	display:none;
+}
+._logged_in_dropdown ul li {
+    display: table;
+    width: 100%;
+}
+._logged_in_dropdown_anchor .fa-caret-down {
+    padding-left: 10px;
+}
+._dashboard_banner_inner h4 {
+    color: #fff;
+}
+._content_pg_sec {    margin-top: 70px;    padding: 70px 0;}._content_pg_sec h3{    margin-bottom: 15px;}._content_pg_sec p {    font-size: 16px;    line-height: 23px;	margin-bottom: 15px;}._page_title {    margin-bottom: 20px;    border-bottom: 1px solid #ececec;}
+
+button.stripe-button-el {
+    background: url(https://www.90daysgo.tk/assets/front/images/btn_checkout.png);
+    width: 420px;
+    background-color: transparent !important;
+    height: 60px;
+    background-size: cover !important;
+    box-shadow: none !important;
+}
+form#firstform {
+    display: inline-block;
+    max-width: 420px;
+    padding: 0 10px;
+}
+button.stripe-button-el span {
+    display: none !important;
+}
+button.stripe-button-el:focus, button.stripe-button-el:hover {
+    outline: 0 !important;
+}
+.finish ._week_day_inner {
+    background: #f08b08 none repeat scroll 0 0;
+}
+.finish ._week_day_inner span {
+    color: #fff;
+}
+
 /*Responsive Starts here*/
+
 @media screen and (max-width:1199px)
 {
 	.container {
@@ -1217,8 +1322,11 @@ section._mobile_nav {
 	}
 	._full_cart_content {
     margin-top: 0;
-	background-color: #f4f4f4;
 	background-image: none;
+	}
+	._bg_gray_full_cart_content {
+    background: #f4f4f4;
+    padding: 20px 15px;
 	}
 	._mobile_only_sec  ._btn_rows_checkout {
     padding: 0px 0 0 0;
@@ -1268,9 +1376,11 @@ section._mobile_nav {
     letter-spacing: 1px;
 	}
 	._single_workout_cta .btn_blue {
-    bottom: 0;
     max-width: 100%;
     border-radius: 0 !important;
+    position: fixed;
+    bottom: 0;
+    z-index: 9;
 	}
 	._header_dashboard_right ._header_basket {
     display: none;
@@ -1288,6 +1398,15 @@ section._mobile_nav {
 		display: table;
 		margin: 0 auto;
 		float: left;
+	}
+	button.stripe-button-el {
+    width: 321px;
+    height: 46px;
+	}
+	.btn_cart_checkout {
+    display: table;
+    max-width: 348px;
+    margin: 0 auto;
 	}
 }
 @media screen and (max-width: 640px)
@@ -1357,6 +1476,9 @@ section._mobile_nav {
 	
 	._header_dashboard_right._header_cart {
     width: 34%;
+	}
+	section._dashboard_banner {
+    min-height: 300px;
 	}
 
 
@@ -1443,6 +1565,11 @@ section._mobile_nav {
 	._product_banner_inner {
     bottom: 80px;
 	}
+	button.stripe-button-el {
+    width: 273px;
+    height: 39px;
+	}
+	
 }
 
 @media screen and (max-height: 480px)

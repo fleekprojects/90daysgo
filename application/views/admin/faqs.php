@@ -195,7 +195,6 @@
 			data:{'id':id},
 			success:function(result){
 				$('#id').val(result.id),
-				$('#tag').val(result.tag),
 				$('#question').val(result.question),
 				$('#answer').summernote("code", result.answer);
 				$(".note-editor .note-editing-area").css("position", "initial");
